@@ -48,6 +48,7 @@ export const PROFISSOES = [
   'Fisioterapeuta',
   'Funcionário(a) Público(a)',
   'Médico(a)',
+  'Modelo',
   'Nutricionista',
   'Odontólogo(a)',
   'Professor(a)',
