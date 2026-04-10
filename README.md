@@ -470,8 +470,6 @@ Contribuições são bem-vindas. Para colaborar:
 
 Este repositório **não possui um arquivo de licença definido até o momento**.
 
-Se desejar, posso também criar uma licença MIT e ajustar esta seção automaticamente.
-
 ---
 
 <div align="center">
