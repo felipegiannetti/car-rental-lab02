@@ -57,8 +57,8 @@ export default function Sidebar({ open, onClose }) {
   return (
     <aside
       className={`
-        fixed md:static inset-y-0 left-0 z-30
-        w-64 min-h-screen bg-sidebar flex flex-col shrink-0
+        fixed inset-y-0 left-0 z-30
+        w-64 h-screen bg-sidebar flex flex-col shrink-0 overflow-y-auto
         transition-transform duration-200 ease-in-out
         ${open ? 'translate-x-0' : '-translate-x-full md:translate-x-0'}
       `}

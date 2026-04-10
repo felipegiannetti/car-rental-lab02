@@ -35,7 +35,8 @@ function StatusBadge({ status }) {
 
 function CarThumb({ automovel }) {
   if (automovel.temFoto) {
-    return <img src={`${automovelApi.fotoUrl(automovel.id)}?t=${automovel.id}`} alt={`${automovel.marca} ${automovel.modelo}`} className="w-14 h-14 rounded-2xl object-cover shadow-sm shrink-0" />
+    const fotoVersion = encodeURIComponent(automovel.fotoVersao || automovel.dataAtualizacao || automovel.id)
+    return <img src={`${automovelApi.fotoUrl(automovel.id)}?v=${fotoVersion}`} alt={`${automovel.marca} ${automovel.modelo}`} className="w-14 h-14 rounded-2xl object-cover shadow-sm shrink-0" />
   }
   const colors = ['from-blue-500 to-indigo-600', 'from-emerald-500 to-teal-600', 'from-rose-500 to-pink-600', 'from-amber-500 to-orange-600', 'from-violet-500 to-purple-600']
   const idx = automovel.marca.charCodeAt(0) % colors.length

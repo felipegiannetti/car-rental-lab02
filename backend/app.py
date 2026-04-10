@@ -36,6 +36,8 @@ def _ensure_legacy_schema():
             automovel_statements.append("ALTER TABLE automoveis ADD COLUMN aceita_aluguel BOOLEAN DEFAULT 1")
         if 'aceita_compra' not in automovel_columns:
             automovel_statements.append("ALTER TABLE automoveis ADD COLUMN aceita_compra BOOLEAN DEFAULT 1")
+        if 'data_atualizacao' not in automovel_columns:
+            automovel_statements.append("ALTER TABLE automoveis ADD COLUMN data_atualizacao DATETIME")
         for statement in automovel_statements:
             db.session.execute(text(statement))
         if 'status_anuncio' in {column['name'] for column in inspect(db.engine).get_columns('automoveis')}:
@@ -47,6 +49,8 @@ def _ensure_legacy_schema():
             db.session.execute(text("UPDATE automoveis SET aceita_aluguel = 1 WHERE aceita_aluguel IS NULL"))
         if 'aceita_compra' in automovel_columns:
             db.session.execute(text("UPDATE automoveis SET aceita_compra = 1 WHERE aceita_compra IS NULL"))
+        if 'data_atualizacao' in automovel_columns:
+            db.session.execute(text("UPDATE automoveis SET data_atualizacao = COALESCE(data_atualizacao, CURRENT_TIMESTAMP)"))
 
     if 'pedidos' in table_names:
         pedido_columns = {column['name'] for column in inspector.get_columns('pedidos')}

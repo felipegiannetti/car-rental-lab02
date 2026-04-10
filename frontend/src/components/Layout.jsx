@@ -7,9 +7,8 @@ export default function Layout() {
   const [sidebarOpen, setSidebarOpen] = useState(false)
 
   return (
-    <div className="flex min-h-screen bg-slate-100">
+    <div className="min-h-screen bg-slate-100">
 
-      {/* Mobile overlay */}
       {sidebarOpen && (
         <div
           className="fixed inset-0 bg-black/50 z-20 md:hidden"
@@ -19,9 +18,8 @@ export default function Layout() {
 
       <Sidebar open={sidebarOpen} onClose={() => setSidebarOpen(false)} />
 
-      <div className="flex-1 flex flex-col min-w-0">
+      <div className="min-h-screen md:pl-64">
 
-        {/* Mobile top bar */}
         <header className="md:hidden flex items-center gap-3 px-4 py-3 bg-sidebar border-b border-white/10 shadow-sm sticky top-0 z-10">
           <button
             onClick={() => setSidebarOpen(true)}
@@ -38,7 +36,7 @@ export default function Layout() {
           </div>
         </header>
 
-        <main className="flex-1 p-4 sm:p-6 md:p-8 overflow-auto">
+        <main className="p-4 sm:p-6 md:p-8">
           <Outlet />
         </main>
       </div>

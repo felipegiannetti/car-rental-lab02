@@ -1,4 +1,4 @@
-from datetime import date
+from datetime import date, datetime
 
 from ..extensions import db
 
@@ -22,6 +22,7 @@ class Automovel(db.Model):
     anunciante_id = db.Column(db.Integer, db.ForeignKey('clientes.id'), nullable=True)
     foto = db.Column(db.LargeBinary)
     foto_tipo = db.Column(db.String(100))
+    data_atualizacao = db.Column(db.DateTime, default=datetime.utcnow, onupdate=datetime.utcnow, nullable=False)
 
     anunciante = db.relationship(
         'Cliente',
@@ -59,4 +60,6 @@ class Automovel(db.Model):
             'anuncianteId': self.anunciante_id,
             'anuncianteNome': self.anunciante.nome if self.anunciante else None,
             'temFoto': bool(self.foto),
+            'dataAtualizacao': self.data_atualizacao.isoformat() if self.data_atualizacao else None,
+            'fotoVersao': self.data_atualizacao.isoformat() if self.foto and self.data_atualizacao else None,
         }
