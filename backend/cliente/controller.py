@@ -2,6 +2,7 @@ import io
 
 from flask import Blueprint, jsonify, request, send_file
 
+from ..security import require_admin
 from .service import ClienteService
 
 bp = Blueprint('clientes', __name__, url_prefix='/api/clientes')
@@ -10,6 +11,9 @@ _svc = ClienteService()
 
 @bp.get('/')
 def listar():
+    forbidden = require_admin()
+    if forbidden:
+        return forbidden
     return jsonify(_svc.listar_todos())
 
 
@@ -31,6 +35,9 @@ def buscar_por_cpf(cpf):
 
 @bp.get('/<int:id>')
 def buscar(id):
+    forbidden = require_admin()
+    if forbidden:
+        return forbidden
     c = _svc.buscar_por_id(id)
     if c:
         return jsonify(c)
@@ -48,6 +55,9 @@ def get_foto(id):
 
 @bp.put('/<int:id>')
 def atualizar(id):
+    forbidden = require_admin()
+    if forbidden:
+        return forbidden
     try:
         return jsonify(_svc.atualizar(id, request.json))
     except ValueError as e:
@@ -56,6 +66,9 @@ def atualizar(id):
 
 @bp.delete('/<int:id>')
 def deletar(id):
+    forbidden = require_admin()
+    if forbidden:
+        return forbidden
     try:
         _svc.deletar(id)
         return '', 204

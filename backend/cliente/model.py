@@ -11,6 +11,8 @@ class Cliente(Usuario):
     cpf = db.Column(db.String(14), nullable=False, unique=True)
     nome = db.Column(db.String(255), nullable=False)
     endereco = db.Column(db.String(500), nullable=False)
+    email = db.Column(db.String(255))
+    telefone = db.Column(db.String(30))
     profissao = db.Column(db.String(100))
     foto = db.Column(db.LargeBinary)
     foto_tipo = db.Column(db.String(100))
@@ -25,12 +27,15 @@ class Cliente(Usuario):
     def to_dict(self):
         return {
             'id': self.id,
+            'tipoRegistro': 'cliente',
             'nomeUsuario': self.nome_usuario,
             'tipoUsuario': self.tipo_usuario,
             'nome': self.nome,
             'rg': self.rg,
             'cpf': self.cpf,
             'endereco': self.endereco,
+            'email': self.email,
+            'telefone': self.telefone,
             'profissao': self.profissao,
             'temFoto': bool(self.foto),
             'rendas': [r.to_dict() for r in self.rendas],
@@ -39,7 +44,7 @@ class Cliente(Usuario):
 
 
 class Renda(db.Model):
-    """Entidade que representa um rendimento de um cliente (máx. 3 por cliente)."""
+    """Entidade que representa um rendimento de um cliente (max. 3 por cliente)."""
 
     __tablename__ = 'rendas'
 

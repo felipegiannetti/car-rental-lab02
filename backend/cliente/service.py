@@ -8,108 +8,114 @@ from .model import Cliente, Renda
 
 
 class ClienteService:
-    """Lógica de negócio do módulo de clientes."""
+    """Logica de negocio do modulo de clientes."""
 
     def listar_todos(self):
         return [c.to_dict() for c in Cliente.query.all()]
 
     def buscar_por_id(self, id):
-        c = db.session.get(Cliente, id)
-        return c.to_dict() if c else None
+        cliente = db.session.get(Cliente, id)
+        return cliente.to_dict() if cliente else None
 
     def buscar_por_cpf(self, cpf):
         cpf_norm = self._normalizar(cpf)
-        c = Cliente.query.filter_by(cpf=cpf_norm).first()
-        return c.to_dict() if c else None
+        cliente = Cliente.query.filter_by(cpf=cpf_norm).first()
+        return cliente.to_dict() if cliente else None
 
     def buscar_foto(self, id):
-        c = db.session.get(Cliente, id)
-        if not c or not c.foto:
+        cliente = db.session.get(Cliente, id)
+        if not cliente or not cliente.foto:
             return None
-        return c.foto, c.foto_tipo or 'image/jpeg'
+        return cliente.foto, cliente.foto_tipo or 'image/jpeg'
 
     def criar(self, data):
         cpf_norm = self._normalizar(data.get('cpf', ''))
         if Cliente.query.filter_by(cpf=cpf_norm).first():
-            raise ValueError(f"CPF já cadastrado: {data.get('cpf')}")
-        c = Cliente()
-        c.tipo_usuario = 'CLIENTE'
-        self._preencher(c, data)
-        db.session.add(c)
+            raise ValueError(f"CPF ja cadastrado: {data.get('cpf')}")
+        cliente = Cliente()
+        cliente.tipo_usuario = 'CLIENTE'
+        self._preencher(cliente, data)
+        db.session.add(cliente)
         db.session.commit()
-        return c.to_dict()
+        return cliente.to_dict()
 
     def atualizar(self, id, data):
-        c = db.session.get(Cliente, id)
-        if not c:
-            raise ValueError(f'Cliente não encontrado: {id}')
+        cliente = db.session.get(Cliente, id)
+        if not cliente:
+            raise ValueError(f'Cliente nao encontrado: {id}')
+
         cpf_norm = self._normalizar(data.get('cpf', ''))
-        if c.cpf != cpf_norm and Cliente.query.filter(
+        if cliente.cpf != cpf_norm and Cliente.query.filter(
             Cliente.cpf == cpf_norm, Cliente.id != id
         ).first():
-            raise ValueError('CPF já cadastrado para outro cliente.')
-        self._preencher(c, data)
+            raise ValueError('CPF ja cadastrado para outro cliente.')
+
+        self._preencher(cliente, data)
         db.session.commit()
-        return c.to_dict()
+        return cliente.to_dict()
 
     def deletar(self, id):
-        c = db.session.get(Cliente, id)
-        if not c:
-            raise ValueError(f'Cliente não encontrado: {id}')
-        db.session.delete(c)
+        cliente = db.session.get(Cliente, id)
+        if not cliente:
+            raise ValueError(f'Cliente nao encontrado: {id}')
+        db.session.delete(cliente)
         db.session.commit()
 
     def verificar_credenciais(self, nome_usuario, senha):
-        c = Cliente.query.filter_by(nome_usuario=nome_usuario).first()
-        if not c:
+        cliente = Cliente.query.filter_by(nome_usuario=nome_usuario).first()
+        if not cliente:
             return None
-        if c.senha.startswith('pbkdf2:') or c.senha.startswith('scrypt:'):
-            if not check_password_hash(c.senha, senha):
+        if cliente.senha.startswith('pbkdf2:') or cliente.senha.startswith('scrypt:'):
+            if not check_password_hash(cliente.senha, senha):
                 return None
         else:
-            if c.senha != senha:
+            if cliente.senha != senha:
                 return None
-        return c.to_dict()
+        return cliente.to_dict()
 
-    # ── helpers ──────────────────────────────────────────────────────────────
-
-    def _preencher(self, c, data):
-        c.nome_usuario = data['nomeUsuario']
-        if data.get('senha'):
-            c.senha = generate_password_hash(data['senha'])
-        elif not getattr(c, 'senha', None):
-            c.senha = generate_password_hash('changeme')
-        c.nome = data['nome']
-        c.rg = self._normalizar(data.get('rg', ''))
-        c.cpf = self._normalizar(data.get('cpf', ''))
-        c.endereco = data['endereco']
-        c.profissao = data.get('profissao') or 'Sem profissão'
-        self._processar_foto(c, data.get('fotoBase64'))
-        c.rendas.clear()
+    def _preencher(self, cliente, data):
+        cliente.nome_usuario = data['nomeUsuario']
+        cliente.senha = self._preencher_senha(getattr(cliente, 'senha', None), data.get('senha'))
+        cliente.nome = data['nome']
+        cliente.rg = self._normalizar(data.get('rg', ''))
+        cliente.cpf = self._normalizar(data.get('cpf', ''))
+        cliente.endereco = data['endereco']
+        cliente.email = data.get('email')
+        cliente.telefone = data.get('telefone')
+        cliente.profissao = data.get('profissao') or 'Sem profissao'
+        self._processar_foto(cliente, data.get('fotoBase64'))
+        cliente.rendas.clear()
         for n in range(1, 4):
-            ent = data.get(f'renda{n}Entidade')
-            val = data.get(f'renda{n}Valor')
-            if ent and val is not None:
-                r = Renda()
-                r.entidade_empregadora = ent
-                r.valor_rendimento = float(val)
-                r.cliente = c
-                c.rendas.append(r)
+            entidade = data.get(f'renda{n}Entidade')
+            valor = data.get(f'renda{n}Valor')
+            if entidade and valor is not None:
+                renda = Renda()
+                renda.entidade_empregadora = entidade
+                renda.valor_rendimento = float(valor)
+                renda.cliente = cliente
+                cliente.rendas.append(renda)
 
-    def _processar_foto(self, c, foto_b64):
+    def _processar_foto(self, cliente, foto_b64):
         if not foto_b64:
             return
         try:
             if ',' in foto_b64:
                 header, data = foto_b64.split(',', 1)
                 tipo = header.split(':')[1].split(';')[0] if ':' in header else 'image/jpeg'
-                c.foto_tipo = tipo
-                c.foto = base64.b64decode(data)
+                cliente.foto_tipo = tipo
+                cliente.foto = base64.b64decode(data)
             else:
-                c.foto_tipo = 'image/jpeg'
-                c.foto = base64.b64decode(foto_b64)
+                cliente.foto_tipo = 'image/jpeg'
+                cliente.foto = base64.b64decode(foto_b64)
         except Exception:
             pass
 
-    def _normalizar(self, v):
-        return re.sub(r'\D', '', v or '')
+    def _preencher_senha(self, senha_atual, nova_senha):
+        if nova_senha:
+            return generate_password_hash(nova_senha)
+        if senha_atual:
+            return senha_atual
+        return generate_password_hash('changeme')
+
+    def _normalizar(self, value):
+        return re.sub(r'\D', '', value or '')

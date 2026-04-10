@@ -1,15 +1,15 @@
 from flask import Blueprint, jsonify, request
 
-from ..cliente.service import ClienteService
+from .service import AuthService
 
 bp = Blueprint('auth', __name__, url_prefix='/api/auth')
-_svc = ClienteService()
+_svc = AuthService()
 
 
 @bp.post('/login')
 def login():
     data = request.json or {}
-    user = _svc.verificar_credenciais(
+    user = _svc.autenticar(
         data.get('nomeUsuario', ''),
         data.get('senha', ''),
     )

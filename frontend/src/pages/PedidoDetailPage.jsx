@@ -1,78 +1,30 @@
 import { useEffect, useState } from 'react'
 import { useParams, Link, useNavigate } from 'react-router-dom'
-import {
-  ArrowLeft, Car, Calendar, User, FileText,
-  Clock, CheckCircle2, XCircle, Search, Ban,
-} from 'lucide-react'
+import { ArrowLeft, Car, Calendar, User, FileText, Clock, CheckCircle2, XCircle, Search, Ban, ShoppingBag, Phone, ShieldCheck, Trash2 } from 'lucide-react'
 import { pedidoApi } from '../api/pedidoApi'
 import { useAuth } from '../context/AuthContext'
 import ConfirmModal from '../components/ConfirmModal'
 import toast from 'react-hot-toast'
 
 const STATUS_META = {
-  PENDENTE:   { label: 'Pendente',   cls: 'bg-amber-50 text-amber-700 border-amber-200',  dot: 'bg-amber-400',  icon: Clock },
-  EM_ANALISE: { label: 'Em Análise', cls: 'bg-blue-50 text-blue-700 border-blue-200',     dot: 'bg-blue-400',   icon: Search },
-  APROVADO:   { label: 'Aprovado',   cls: 'bg-green-50 text-green-700 border-green-200',  dot: 'bg-green-500',  icon: CheckCircle2 },
-  REPROVADO:  { label: 'Reprovado',  cls: 'bg-red-50 text-red-700 border-red-200',        dot: 'bg-red-500',    icon: XCircle },
-  CANCELADO:  { label: 'Cancelado',  cls: 'bg-slate-100 text-slate-500 border-slate-200', dot: 'bg-slate-400',  icon: Ban },
+  PENDENTE: { label: 'Pendente', cls: 'bg-amber-50 text-amber-700 border-amber-200', dot: 'bg-amber-400', icon: Clock },
+  EM_ANALISE: { label: 'Em analise', cls: 'bg-blue-50 text-blue-700 border-blue-200', dot: 'bg-blue-400', icon: Search },
+  APROVADO: { label: 'Aprovado', cls: 'bg-green-50 text-green-700 border-green-200', dot: 'bg-green-500', icon: CheckCircle2 },
+  REPROVADO: { label: 'Reprovado', cls: 'bg-red-50 text-red-700 border-red-200', dot: 'bg-red-500', icon: XCircle },
+  CANCELADO: { label: 'Cancelado', cls: 'bg-slate-100 text-slate-500 border-slate-200', dot: 'bg-slate-400', icon: Ban },
 }
-
-const FLOW = ['PENDENTE', 'EM_ANALISE', 'APROVADO']
 
 function StatusBadge({ status }) {
-  const m = STATUS_META[status] || STATUS_META.PENDENTE
-  const Icon = m.icon
-  return (
-    <span className={`inline-flex items-center gap-1.5 text-sm font-semibold px-3 py-1.5 rounded-full border ${m.cls}`}>
-      <Icon className="w-4 h-4" /> {m.label}
-    </span>
-  )
+  const meta = STATUS_META[status] || STATUS_META.PENDENTE
+  const Icon = meta.icon
+  return <span className={`inline-flex items-center gap-1.5 text-sm font-semibold px-3 py-1.5 rounded-full border ${meta.cls}`}><Icon className="w-4 h-4" /> {meta.label}</span>
 }
 
-function StatusTimeline({ status }) {
-  const isReprovado = status === 'REPROVADO'
-  const isCancelado = status === 'CANCELADO'
-
-  return (
-    <div className="flex items-center gap-0 w-full max-w-sm">
-      {FLOW.map((s, i) => {
-        const m = STATUS_META[s]
-        const isDone = FLOW.indexOf(status) >= i && !isReprovado && !isCancelado
-        const isCurrent = status === s
-        const isLast = i === FLOW.length - 1
-        return (
-          <div key={s} className="flex items-center flex-1">
-            <div className={`relative flex flex-col items-center gap-1 flex-1`}>
-              <div className={`w-8 h-8 rounded-full flex items-center justify-center border-2 transition-all
-                ${isDone ? 'border-green-500 bg-green-500' : isCurrent ? 'border-blue-500 bg-blue-50' : 'border-slate-200 bg-white'}`}>
-                {isDone
-                  ? <CheckCircle2 className="w-4 h-4 text-white" />
-                  : <span className={`w-2 h-2 rounded-full ${isCurrent ? 'bg-blue-500' : 'bg-slate-300'}`} />
-                }
-              </div>
-              <span className={`text-xs font-medium whitespace-nowrap
-                ${isDone ? 'text-green-600' : isCurrent ? 'text-blue-600' : 'text-slate-400'}`}>
-                {m.label}
-              </span>
-            </div>
-            {!isLast && (
-              <div className={`h-0.5 flex-1 mb-4 mx-1 transition-all
-                ${FLOW.indexOf(status) > i && !isReprovado && !isCancelado ? 'bg-green-400' : 'bg-slate-200'}`} />
-            )}
-          </div>
-        )
-      })}
-    </div>
-  )
-}
-
-function InfoField({ label, value, mono }) {
+function InfoField({ label, value }) {
   return (
     <div>
       <p className="text-xs font-semibold text-slate-400 uppercase tracking-wider mb-1">{label}</p>
-      <p className={`text-sm font-medium text-slate-800 break-words ${mono ? 'font-mono' : ''}`}>
-        {value || <span className="text-slate-300 italic">—</span>}
-      </p>
+      <p className="text-sm font-medium text-slate-800 break-words">{value || <span className="text-slate-300 italic">---</span>}</p>
     </div>
   )
 }
@@ -81,9 +33,7 @@ function Section({ icon: Icon, title, children }) {
   return (
     <div className="bg-white rounded-2xl shadow-sm border border-slate-100 overflow-hidden">
       <div className="flex items-center gap-3 px-5 sm:px-6 py-4 border-b border-slate-50 bg-slate-50/70">
-        <div className="w-7 h-7 rounded-lg bg-blue-100 flex items-center justify-center shrink-0">
-          <Icon className="w-4 h-4 text-blue-600" />
-        </div>
+        <div className="w-7 h-7 rounded-lg bg-blue-100 flex items-center justify-center shrink-0"><Icon className="w-4 h-4 text-blue-600" /></div>
         <span className="text-sm font-semibold text-slate-700">{title}</span>
       </div>
       <div className="p-5 sm:p-6">{children}</div>
@@ -91,27 +41,30 @@ function Section({ icon: Icon, title, children }) {
   )
 }
 
-const fmt = (d) => d ? new Date(d + 'T00:00:00').toLocaleDateString('pt-BR', { day: '2-digit', month: 'long', year: 'numeric' }) : '—'
-const fmtShort = (d) => d ? new Date(d).toLocaleDateString('pt-BR') : '—'
+const fmt = (d) => d ? new Date(`${d}T00:00:00`).toLocaleDateString('pt-BR', { day: '2-digit', month: 'long', year: 'numeric' }) : '---'
+const fmtShort = (d) => d ? new Date(d).toLocaleDateString('pt-BR') : '---'
 
 export default function PedidoDetailPage() {
   const { id } = useParams()
   const navigate = useNavigate()
-  const { user } = useAuth()
+  const { user, isAdmin } = useAuth()
   const [pedido, setPedido] = useState(null)
   const [loading, setLoading] = useState(true)
   const [showCancel, setShowCancel] = useState(false)
-  const [canceling, setCanceling] = useState(false)
+  const [showApprove, setShowApprove] = useState(false)
+  const [showReject, setShowReject] = useState(false)
+  const [showDelete, setShowDelete] = useState(false)
+  const [submitting, setSubmitting] = useState(false)
 
   useEffect(() => {
     pedidoApi.getById(id)
       .then(setPedido)
-      .catch(() => { toast.error('Pedido não encontrado.'); navigate('/pedidos') })
+      .catch(() => { toast.error('Pedido nao encontrado.'); navigate('/pedidos') })
       .finally(() => setLoading(false))
-  }, [id])
+  }, [id, navigate])
 
   async function handleCancel() {
-    setCanceling(true)
+    setSubmitting(true)
     try {
       const updated = await pedidoApi.cancelar(id)
       setPedido(updated)
@@ -119,114 +72,171 @@ export default function PedidoDetailPage() {
       setShowCancel(false)
     } catch (err) {
       toast.error(err.response?.data?.message ?? 'Erro ao cancelar.')
-    } finally { setCanceling(false) }
+    } finally {
+      setSubmitting(false)
+    }
   }
 
-  if (loading) return (
-    <div className="flex items-center justify-center h-64 text-slate-300 text-sm animate-pulse">Carregando…</div>
-  )
+  async function handleDecision(status) {
+    setSubmitting(true)
+    try {
+      const updated = await pedidoApi.atualizarStatus(id, status)
+      setPedido(updated)
+      toast.success(status === 'APROVADO' ? 'Pedido aprovado.' : 'Pedido recusado.')
+      setShowApprove(false)
+      setShowReject(false)
+    } catch (err) {
+      toast.error(err.response?.data?.message ?? 'Erro ao decidir pedido.')
+    } finally {
+      setSubmitting(false)
+    }
+  }
+
+  async function handleDelete() {
+    setSubmitting(true)
+    try {
+      await pedidoApi.remove(id)
+      toast.success('Pedido excluido.')
+      navigate('/pedidos')
+    } catch (err) {
+      toast.error(err.response?.data?.message ?? 'Erro ao excluir pedido.')
+      setSubmitting(false)
+    }
+  }
+
+  if (loading) return <div className="flex items-center justify-center h-64 text-slate-300 text-sm animate-pulse">Carregando...</div>
   if (!pedido) return null
 
-  const canCancel = ['PENDENTE', 'EM_ANALISE'].includes(pedido.status)
-  const m = STATUS_META[pedido.status] || STATUS_META.PENDENTE
+  const canCancel = user && !isAdmin && user.id === pedido.clienteId && ['PENDENTE', 'EM_ANALISE'].includes(pedido.status)
+  const canDecide = user && (isAdmin || user.id === pedido.anuncianteId) && ['PENDENTE', 'EM_ANALISE'].includes(pedido.status)
+  const canDelete = isAdmin
+  const isCompra = pedido.tipoPedido === 'COMPRA'
 
   return (
-    <div className="max-w-2xl mx-auto space-y-5">
-
-      {/* Header card */}
+    <div className="max-w-3xl mx-auto space-y-5">
       <div className="bg-white rounded-2xl shadow-sm border border-slate-100 overflow-hidden">
-        <div className={`h-16 ${
-          pedido.status === 'APROVADO' ? 'bg-gradient-to-r from-green-500 to-emerald-600' :
-          pedido.status === 'REPROVADO' ? 'bg-gradient-to-r from-red-500 to-rose-600' :
-          pedido.status === 'CANCELADO' ? 'bg-gradient-to-r from-slate-400 to-slate-500' :
-          pedido.status === 'EM_ANALISE' ? 'bg-gradient-to-r from-blue-500 to-indigo-600' :
-          'bg-gradient-to-r from-amber-500 to-orange-500'
-        }`} />
+        <div className={`h-16 ${pedido.status === 'APROVADO' ? 'bg-gradient-to-r from-green-500 to-emerald-600' : pedido.status === 'REPROVADO' ? 'bg-gradient-to-r from-red-500 to-rose-600' : pedido.status === 'CANCELADO' ? 'bg-gradient-to-r from-slate-400 to-slate-500' : pedido.status === 'EM_ANALISE' ? 'bg-gradient-to-r from-blue-500 to-indigo-600' : 'bg-gradient-to-r from-amber-500 to-orange-500'}`} />
         <div className="px-5 sm:px-6 -mt-6 flex items-end justify-between gap-4 pb-5">
-          <div className={`w-12 h-12 rounded-2xl flex items-center justify-center shadow-lg ring-4 ring-white
-            ${m.cls.includes('green') ? 'bg-green-500' : m.cls.includes('blue') ? 'bg-blue-500' :
-              m.cls.includes('red') ? 'bg-red-500' : m.cls.includes('amber') ? 'bg-amber-500' : 'bg-slate-400'}`}>
-            <m.icon className="w-6 h-6 text-white" />
+          <div className={`w-12 h-12 rounded-2xl flex items-center justify-center shadow-lg ring-4 ring-white ${pedido.status === 'APROVADO' ? 'bg-green-500' : pedido.status === 'REPROVADO' ? 'bg-red-500' : pedido.status === 'CANCELADO' ? 'bg-slate-400' : pedido.status === 'EM_ANALISE' ? 'bg-blue-500' : 'bg-amber-500'}`}>
+            {isCompra ? <ShoppingBag className="w-6 h-6 text-white" /> : <Car className="w-6 h-6 text-white" />}
           </div>
           <div className="flex items-center gap-2 mt-8">
-            {canCancel && (
-              <button onClick={() => setShowCancel(true)}
-                className="btn-danger text-xs px-3 py-1.5">
-                <XCircle className="w-3.5 h-3.5" /> Cancelar Pedido
-              </button>
+            {canDecide && (
+              <>
+                <button onClick={() => setShowReject(true)} className="btn-secondary text-xs px-3 py-1.5 text-red-600 border-red-200 hover:bg-red-50"><XCircle className="w-3.5 h-3.5" /> Recusar</button>
+                <button onClick={() => setShowApprove(true)} className="btn-primary text-xs px-3 py-1.5"><ShieldCheck className="w-3.5 h-3.5" /> Aprovar</button>
+              </>
             )}
+            {canCancel && <button onClick={() => setShowCancel(true)} className="btn-danger text-xs px-3 py-1.5"><XCircle className="w-3.5 h-3.5" /> Cancelar pedido</button>}
+            {canDelete && <button onClick={() => setShowDelete(true)} className="btn-danger text-xs px-3 py-1.5"><Trash2 className="w-3.5 h-3.5" /> Excluir pedido</button>}
           </div>
         </div>
         <div className="px-5 sm:px-6 pb-5 space-y-1">
           <div className="flex flex-wrap items-center gap-3">
             <h1 className="text-lg font-bold text-slate-900">Pedido #{pedido.id}</h1>
             <StatusBadge status={pedido.status} />
+            <span className="inline-flex items-center gap-1 text-xs rounded-full bg-slate-100 text-slate-600 px-2 py-1 font-semibold">
+              {isCompra ? <ShoppingBag className="w-3 h-3" /> : <Car className="w-3 h-3" />}
+              {pedido.tipoPedido}
+            </span>
           </div>
           <p className="text-sm text-slate-400">Solicitado em {fmtShort(pedido.dataCriacao)}</p>
         </div>
       </div>
 
-      {/* Status timeline */}
-      {!['REPROVADO', 'CANCELADO'].includes(pedido.status) && (
-        <div className="bg-white rounded-2xl shadow-sm border border-slate-100 p-5 sm:p-6">
-          <p className="text-xs font-semibold text-slate-400 uppercase tracking-wider mb-5">Andamento do Pedido</p>
-          <StatusTimeline status={pedido.status} />
-        </div>
-      )}
-
-      {['REPROVADO', 'CANCELADO'].includes(pedido.status) && (
-        <div className={`rounded-2xl border p-5 flex items-center gap-4
-          ${pedido.status === 'REPROVADO' ? 'bg-red-50 border-red-200' : 'bg-slate-50 border-slate-200'}`}>
-          <m.icon className={`w-8 h-8 shrink-0 ${pedido.status === 'REPROVADO' ? 'text-red-400' : 'text-slate-400'}`} />
-          <div>
-            <p className={`font-semibold text-sm ${pedido.status === 'REPROVADO' ? 'text-red-700' : 'text-slate-600'}`}>
-              Pedido {m.label}
-            </p>
-            <p className={`text-xs mt-0.5 ${pedido.status === 'REPROVADO' ? 'text-red-500' : 'text-slate-400'}`}>
-              Este pedido não pode mais ser alterado.
-            </p>
-          </div>
-        </div>
-      )}
-
-      {/* Veículo */}
-      <Section icon={Car} title="Veículo">
-        <InfoField label="Automóvel" value={pedido.automovelInfo} />
-      </Section>
-
-      {/* Período */}
-      <Section icon={Calendar} title="Período do Aluguel">
+      <Section icon={Car} title="Veiculo">
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
-          <InfoField label="Data de Início" value={fmt(pedido.dataInicio)} />
-          <InfoField label="Data de Fim" value={fmt(pedido.dataFim)} />
+          <InfoField label="Automovel" value={pedido.automovelInfo} />
+          <InfoField label="Status do anuncio" value={pedido.automovelStatus} />
         </div>
       </Section>
 
-      {/* Cliente */}
-      <Section icon={User} title="Solicitante">
-        <InfoField label="Cliente" value={pedido.clienteNome} />
+      <Section icon={User} title="Participantes">
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
+          <InfoField label="Solicitante" value={pedido.clienteNome} />
+          <InfoField label="Dono do anuncio" value={pedido.anuncianteNome} />
+        </div>
       </Section>
 
-      {/* Observação */}
+      {pedido.tipoPedido === 'ALUGUEL' ? (
+        <Section icon={Calendar} title="Periodo do aluguel">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
+            <InfoField label="Data de inicio" value={fmt(pedido.dataInicio)} />
+            <InfoField label="Data de fim" value={fmt(pedido.dataFim)} />
+          </div>
+        </Section>
+      ) : (
+        <Section icon={ShoppingBag} title="Fluxo de compra">
+          <p className="text-sm text-slate-700 leading-relaxed">
+            Se o pedido for aprovado, os dados de contato do dono do anuncio ficam disponiveis para a negociacao.
+          </p>
+        </Section>
+      )}
+
+      {pedido.contatoAnunciante && (
+        <Section icon={Phone} title="Contato do anunciante">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
+            <InfoField label="Nome" value={pedido.contatoAnunciante.nome} />
+            <InfoField label="CPF" value={pedido.contatoAnunciante.cpf} />
+            <InfoField label="Email" value={pedido.contatoAnunciante.email} />
+            <InfoField label="Telefone" value={pedido.contatoAnunciante.telefone} />
+          </div>
+        </Section>
+      )}
+
       {pedido.observacao && (
-        <Section icon={FileText} title="Observações">
+        <Section icon={FileText} title="Observacoes">
           <p className="text-sm text-slate-700 leading-relaxed">{pedido.observacao}</p>
         </Section>
       )}
 
       <div className="pb-8">
-        <Link to="/pedidos" className="btn-secondary">
-          <ArrowLeft className="w-4 h-4" /> Voltar aos pedidos
-        </Link>
+        <Link to="/pedidos" className="btn-secondary"><ArrowLeft className="w-4 h-4" /> Voltar aos pedidos</Link>
       </div>
 
       <ConfirmModal
         isOpen={showCancel}
         title="Cancelar pedido"
-        message={`Tem certeza que deseja cancelar o Pedido #${pedido.id}? Esta ação não pode ser desfeita.`}
+        message={`Tem certeza que deseja cancelar o pedido #${pedido.id}? Esta acao nao pode ser desfeita.`}
         onConfirm={handleCancel}
         onCancel={() => setShowCancel(false)}
-        loading={canceling}
+        loading={submitting}
+        confirmLabel="Cancelar pedido"
+        loadingLabel="Cancelando..."
+        tone="danger"
+      />
+      <ConfirmModal
+        isOpen={showApprove}
+        title="Aprovar pedido"
+        message={`Deseja aprovar o pedido #${pedido.id}?`}
+        onConfirm={() => handleDecision('APROVADO')}
+        onCancel={() => setShowApprove(false)}
+        loading={submitting}
+        confirmLabel="Aprovar"
+        loadingLabel="Aprovando..."
+        tone="primary"
+      />
+      <ConfirmModal
+        isOpen={showReject}
+        title="Recusar pedido"
+        message={`Deseja recusar o pedido #${pedido.id}?`}
+        onConfirm={() => handleDecision('REPROVADO')}
+        onCancel={() => setShowReject(false)}
+        loading={submitting}
+        confirmLabel="Recusar"
+        loadingLabel="Recusando..."
+        tone="danger"
+      />
+      <ConfirmModal
+        isOpen={showDelete}
+        title="Excluir pedido"
+        message={`Deseja excluir o pedido #${pedido.id}? Esta acao nao pode ser desfeita.`}
+        onConfirm={handleDelete}
+        onCancel={() => setShowDelete(false)}
+        loading={submitting}
+        confirmLabel="Excluir"
+        loadingLabel="Excluindo..."
+        tone="danger"
       />
     </div>
   )
