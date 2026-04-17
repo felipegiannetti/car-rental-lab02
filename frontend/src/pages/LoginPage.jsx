@@ -33,10 +33,18 @@ export default function LoginPage() {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-900 via-slate-800 to-indigo-950 flex items-center justify-center p-4">
+    <div className="relative min-h-screen flex items-center justify-center p-4 overflow-hidden">
+      <div
+        className="absolute inset-0 bg-center bg-cover"
+        style={{
+          backgroundImage: "url('https://images.unsplash.com/photo-1492144534655-ae79c964c9d7?auto=format&fit=crop&w=1800&q=80')",
+        }}
+      />
+      <div className="absolute inset-0 bg-gradient-to-br from-slate-950/85 via-slate-900/75 to-slate-950/90" />
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_25%_20%,rgba(59,130,246,0.25),transparent_55%),radial-gradient(circle_at_75%_80%,rgba(14,165,233,0.2),transparent_50%)]" />
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        <div className="absolute -top-40 -right-40 w-96 h-96 rounded-full bg-blue-500/10 blur-3xl" />
-        <div className="absolute -bottom-40 -left-40 w-96 h-96 rounded-full bg-indigo-500/10 blur-3xl" />
+        <div className="absolute top-8 left-8 h-24 w-24 rounded-full border border-white/10" />
+        <div className="absolute bottom-10 right-10 h-32 w-32 rounded-full border border-white/10" />
       </div>
 
       <div className="relative w-full max-w-sm">

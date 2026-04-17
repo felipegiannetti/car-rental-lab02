@@ -15,7 +15,7 @@ ReactDOM.createRoot(document.getElementById('root')).render(
           position="top-right"
           toastOptions={{
             duration: 3500,
-            style: { fontFamily: 'Inter, sans-serif', fontSize: '14px' },
+            style: { fontFamily: '"Manrope", ui-sans-serif, system-ui, sans-serif', fontSize: '14px' },
             success: { style: { background: '#f0fdf4', border: '1px solid #bbf7d0', color: '#166534' } },
             error:   { style: { background: '#fef2f2', border: '1px solid #fecaca', color: '#991b1b' } },
           }}

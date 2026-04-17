@@ -14,6 +14,7 @@ import PedidoFormPage from './pages/PedidoFormPage'
 import PedidoDetailPage from './pages/PedidoDetailPage'
 import PedidosRecebidosPage from './pages/PedidosRecebidosPage'
 import NotificacoesPage from './pages/NotificacoesPage'
+import DesignPage from './pages/DesignPage'
 import { useAuth } from './context/AuthContext'
 
 function ProtectedRoute({ children }) {
@@ -50,6 +51,7 @@ export default function App() {
         <Route path="pedidos/:id" element={<ProtectedRoute><PedidoDetailPage /></ProtectedRoute>} />
         <Route path="pedidos-recebidos" element={<ProtectedRoute><PedidosRecebidosPage /></ProtectedRoute>} />
         <Route path="notificacoes" element={<ProtectedRoute><NotificacoesPage /></ProtectedRoute>} />
+        <Route path="design" element={<DesignPage />} />
       </Route>
     </Routes>
   )
