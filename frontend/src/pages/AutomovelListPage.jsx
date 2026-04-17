@@ -138,43 +138,6 @@ function InfoChip({ icon: Icon, label, value }) {
   )
 }
 
-function OfferBadge({ automovel }) {
-  let title = 'Oferta ativa'
-  let subtitle = 'Pronto para pedido'
-  let icon = Car
-
-  if (automovel.statusAnuncio === 'EM_NEGOCIACAO') {
-    title = 'Em negociacao'
-    subtitle = 'Anuncio em conversa'
-    icon = HandCoins
-  } else if (automovel.aceitaAluguel && automovel.aceitaCompra) {
-    title = 'Compra e aluguel'
-    subtitle = 'Mais flexibilidade'
-    icon = ShoppingBag
-  } else if (automovel.aceitaAluguel) {
-    title = 'So aluguel'
-    subtitle = 'Uso por periodo'
-    icon = KeyRound
-  } else if (automovel.aceitaCompra) {
-    title = 'So compra'
-    subtitle = 'Negociacao direta'
-    icon = ShoppingBag
-  }
-
-  const Icon = icon
-
-  return (
-    <div className="rounded-2xl bg-[#f2fde0] px-3 py-2 text-right">
-      <p className="flex items-center justify-end gap-1 text-[10px] font-bold uppercase tracking-[0.16em] text-[#01602a]">
-        <Icon className="h-3.5 w-3.5" />
-        destaque
-      </p>
-      <p className="mt-1 text-sm font-semibold text-[#004521]">{title}</p>
-      <p className="text-[11px] text-[#4d6f46]">{subtitle}</p>
-    </div>
-  )
-}
-
 function VehicleCard({ automovel, canEdit, canDelete, onDelete }) {
   return (
     <article
@@ -202,7 +165,6 @@ function VehicleCard({ automovel, canEdit, canDelete, onDelete }) {
               Visualizacao rapida do anuncio, com destaque para disponibilidade e forma de negociacao.
             </p>
           </div>
-          <OfferBadge automovel={automovel} />
         </div>
 
         <div className="grid grid-cols-2 gap-3">
