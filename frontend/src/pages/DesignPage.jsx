@@ -463,6 +463,68 @@ export default function DesignPage() {
           </div>
         </Card>
 
+        <Card className="p-6 space-y-5">
+          <p className="section-title">Painel de pedidos</p>
+          <div className="grid gap-4 lg:grid-cols-[1.05fr_0.95fr]">
+            <div
+              className="relative overflow-hidden rounded-[32px] p-5"
+              style={{
+                background: 'linear-gradient(160deg, #ffffff 0%, #f7f7f7 100%)',
+                border: `1px solid ${tokens.border}`,
+                boxShadow: '0 18px 40px rgba(15,23,42,0.06)',
+              }}
+            >
+              <div className="absolute left-[-4%] top-[14%] h-36 w-36 rounded-[46%]" style={{ background: '#96ea55' }} />
+              <div className="absolute right-[-6%] top-[12%] h-36 w-36 rounded-[46%]" style={{ background: '#96ea55' }} />
+              <div className="absolute right-[24%] top-[-8%] h-44 w-44 rounded-[48%]" style={{ background: '#8fe84c' }} />
+              <div className="relative space-y-4">
+                <p className="inline-flex rounded-full px-3 py-1 text-[10px] font-bold uppercase tracking-[0.16em]" style={{ background: tokens.limeLight, color: tokens.forest }}>
+                  Central de pedidos
+                </p>
+                <h3 className="text-3xl" style={{ color: tokens.forest }}>Cards com acoes rapidas</h3>
+                <p className="max-w-md text-sm" style={{ color: tokens.textSub }}>
+                  A tela de pedidos saiu do formato de lista simples e virou um painel com hero, busca, tabs e cards de acompanhamento.
+                </p>
+                <div className="grid gap-3 sm:grid-cols-3">
+                  <div className="rounded-2xl border px-4 py-3" style={{ borderColor: tokens.limeBorder, background: tokens.limeLight }}>
+                    <p className="text-[10px] font-bold uppercase tracking-[0.16em]" style={{ color: tokens.forest }}>Total</p>
+                    <p className="mt-1 text-xl font-bold" style={{ color: tokens.forest }}>42</p>
+                  </div>
+                  <div className="rounded-2xl border px-4 py-3" style={{ borderColor: '#f4d38c', background: '#fff8eb' }}>
+                    <p className="text-[10px] font-bold uppercase tracking-[0.16em]" style={{ color: '#b45309' }}>Em aberto</p>
+                    <p className="mt-1 text-xl font-bold" style={{ color: '#92400e' }}>9</p>
+                  </div>
+                  <div className="rounded-2xl border px-4 py-3" style={{ borderColor: '#b6efc7', background: '#eefdf4' }}>
+                    <p className="text-[10px] font-bold uppercase tracking-[0.16em]" style={{ color: '#15803d' }}>Aprovados</p>
+                    <p className="mt-1 text-xl font-bold" style={{ color: '#166534' }}>18</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div className="space-y-4">
+              <div className="rounded-2xl border p-4" style={{ borderColor: tokens.limeBorder, background: tokens.limeLight }}>
+                <p className="text-xs font-bold uppercase tracking-[0.16em]" style={{ color: tokens.forest }}>Estrutura mantida</p>
+                <p className="mt-2 text-sm leading-relaxed" style={{ color: tokens.forestMid }}>
+                  Continuam iguais os conceitos de tabs, busca textual, confirmacoes e decisoes de aprovar, recusar ou cancelar.
+                </p>
+              </div>
+              <div className="rounded-2xl border p-4" style={{ borderColor: tokens.border, background: '#fafafa' }}>
+                <p className="text-xs font-bold uppercase tracking-[0.16em]" style={{ color: tokens.textSub }}>Hierarquia da informacao</p>
+                <p className="mt-2 text-sm leading-relaxed" style={{ color: tokens.textSub }}>
+                  1. Status e tipo. 2. Veiculo. 3. Solicitante ou anunciante. 4. Periodo ou fluxo. 5. Resumo e acoes.
+                </p>
+              </div>
+              <div className="rounded-2xl border p-4" style={{ borderColor: tokens.border, background: '#ffffff' }}>
+                <p className="text-xs font-bold uppercase tracking-[0.16em]" style={{ color: tokens.textSub }}>Componentes usados</p>
+                <p className="mt-2 text-sm leading-relaxed" style={{ color: tokens.textSub }}>
+                  Hero informativo, tabs em pill, stat cards, busca em shell branco e cards responsivos com acoes persistentes.
+                </p>
+              </div>
+            </div>
+          </div>
+        </Card>
+
         {/* Radii */}
         <Card className="p-6">
           <p className="section-title">Raios de borda</p>
