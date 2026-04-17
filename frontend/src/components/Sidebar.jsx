@@ -10,11 +10,7 @@ function getNavItems({ isAuthenticated, isAdmin }) {
 
   if (isAuthenticated) {
     if (!isAdmin) {
-      items.push({
-        to: '/meus-anuncios',
-        icon: FolderKanban,
-        label: 'Meus Anúncios',
-      })
+      items.push({ to: '/meus-anuncios', icon: FolderKanban, label: 'Meus Anúncios' })
     }
     items.push({
       to: '/pedidos',
@@ -22,16 +18,8 @@ function getNavItems({ isAuthenticated, isAdmin }) {
       label: isAdmin ? 'Pedidos' : 'Meus Pedidos',
     })
     if (!isAdmin) {
-      items.push({
-        to: '/pedidos-recebidos',
-        icon: ClipboardList,
-        label: 'Pedidos Recebidos',
-      })
-      items.push({
-        to: '/notificacoes',
-        icon: Bell,
-        label: 'Notificações',
-      })
+      items.push({ to: '/pedidos-recebidos', icon: ClipboardList, label: 'Pedidos Recebidos' })
+      items.push({ to: '/notificacoes', icon: Bell, label: 'Notificações' })
     }
   }
 
@@ -63,24 +51,29 @@ export default function Sidebar({ open, onClose }) {
         ${open ? 'translate-x-0' : '-translate-x-full md:translate-x-0'}
       `}
       style={{
-        background: 'linear-gradient(160deg, #080d1a 0%, #0d1426 60%, #080d1a 100%)',
-        borderRight: '1px solid rgba(255,255,255,0.06)',
+        background: 'linear-gradient(175deg, #012910 0%, #022015 60%, #011a0d 100%)',
+        borderRight: '1px solid rgba(120,222,31,0.12)',
       }}
     >
       {/* Logo */}
       <div className="flex items-center gap-3 px-5 py-5 border-b border-white/[0.07]">
-        <div className="w-9 h-9 rounded-xl bg-gradient-to-br from-brand-500 to-brand-700 flex items-center justify-center shadow-brand shrink-0">
-          <Car className="w-5 h-5 text-white" />
+        <div
+          className="w-9 h-9 rounded-xl flex items-center justify-center shrink-0"
+          style={{ background: '#78de1f', boxShadow: '0 4px 16px rgba(120,222,31,0.4)' }}
+        >
+          <Car className="w-5 h-5" style={{ color: '#004521' }} />
         </div>
         <div className="flex-1 min-w-0">
-          <p className="text-white font-display text-base leading-tight tracking-wide">Car Rental</p>
-          <p className="text-slate-500 text-xs font-sans mt-0.5">Sistema de Aluguel</p>
+          <p className="text-white text-base leading-tight" style={{ fontFamily: '"Racing Sans One", sans-serif', letterSpacing: '0.03em' }}>
+            Car Rental
+          </p>
+          <p className="text-white/40 text-xs mt-0.5">Sistema de Aluguel</p>
         </div>
       </div>
 
       {/* Navigation */}
       <nav className="flex-1 px-3 py-4 space-y-0.5">
-        <p className="px-3 py-2 text-[10px] font-bold text-slate-600 uppercase tracking-[0.15em] font-sans">
+        <p className="px-3 py-2 text-[10px] font-bold text-white/30 uppercase tracking-[0.15em]">
           Menu
         </p>
         {navItems.map(({ to, icon: Icon, label }) => (
@@ -89,11 +82,15 @@ export default function Sidebar({ open, onClose }) {
             to={to}
             onClick={onClose}
             className={({ isActive }) =>
-              `flex items-center gap-3 px-3 py-2.5 rounded-xl transition-all duration-150 text-sm font-sans font-medium ${
+              `flex items-center gap-3 px-3 py-2.5 rounded-xl transition-all duration-150 text-sm font-semibold ${
                 isActive
-                  ? 'bg-brand-600/90 text-white shadow-[0_2px_12px_rgba(37,99,235,0.35)]'
-                  : 'text-slate-400 hover:bg-white/[0.06] hover:text-slate-200'
+                  ? 'text-[#004521]'
+                  : 'text-white/50 hover:bg-white/[0.07] hover:text-white/90'
               }`
+            }
+            style={({ isActive }) => isActive
+              ? { background: '#78de1f', boxShadow: '0 2px 12px rgba(120,222,31,0.35)' }
+              : {}
             }
           >
             <Icon className="w-4 h-4 shrink-0" />
@@ -101,20 +98,24 @@ export default function Sidebar({ open, onClose }) {
           </NavLink>
         ))}
 
-        {/* Design System */}
+        {/* Dev section */}
         <div className="pt-3">
-          <p className="px-3 py-2 text-[10px] font-bold text-slate-600 uppercase tracking-[0.15em] font-sans">
-            Desenvolvimento
+          <p className="px-3 py-2 text-[10px] font-bold text-white/30 uppercase tracking-[0.15em]">
+            Dev
           </p>
           <NavLink
             to="/design"
             onClick={onClose}
             className={({ isActive }) =>
-              `flex items-center gap-3 px-3 py-2.5 rounded-xl transition-all duration-150 text-sm font-sans font-medium ${
+              `flex items-center gap-3 px-3 py-2.5 rounded-xl transition-all duration-150 text-sm font-semibold ${
                 isActive
-                  ? 'bg-brand-600/90 text-white shadow-[0_2px_12px_rgba(37,99,235,0.35)]'
-                  : 'text-slate-400 hover:bg-white/[0.06] hover:text-slate-200'
+                  ? 'text-[#004521]'
+                  : 'text-white/50 hover:bg-white/[0.07] hover:text-white/90'
               }`
+            }
+            style={({ isActive }) => isActive
+              ? { background: '#78de1f', boxShadow: '0 2px 12px rgba(120,222,31,0.35)' }
+              : {}
             }
           >
             <Palette className="w-4 h-4 shrink-0" />
@@ -127,21 +128,24 @@ export default function Sidebar({ open, onClose }) {
       <div className="px-3 py-4 border-t border-white/[0.07] space-y-1.5">
         {isAuthenticated && user ? (
           <>
-            <div className="flex items-center gap-3 px-3 py-2 rounded-xl bg-white/[0.04]">
-              <div className="w-8 h-8 rounded-full bg-gradient-to-br from-brand-500 to-brand-700 flex items-center justify-center text-white text-xs font-bold shrink-0 font-sans shadow-brand">
+            <div className="flex items-center gap-3 px-3 py-2 rounded-xl bg-white/[0.05]">
+              <div
+                className="w-8 h-8 rounded-full flex items-center justify-center text-xs font-bold shrink-0"
+                style={{ background: '#78de1f', color: '#004521' }}
+              >
                 {user.nome?.charAt(0).toUpperCase()}
               </div>
               <div className="min-w-0 flex-1">
-                <p className="text-white text-xs font-semibold truncate font-sans">{user.nome}</p>
-                <p className="text-slate-500 text-[11px] truncate font-sans">
+                <p className="text-white text-xs font-semibold truncate">{user.nome}</p>
+                <p className="text-white/35 text-[11px] truncate">
                   @{user.nomeUsuario} · {user.tipoUsuario}
                 </p>
               </div>
             </div>
             <button
               onClick={handleLogout}
-              className="w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-slate-400
-                hover:bg-red-900/25 hover:text-red-400 transition-all duration-150 text-sm font-medium font-sans"
+              className="w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-white/40
+                hover:bg-red-900/30 hover:text-red-400 transition-all duration-150 text-sm font-semibold"
             >
               <LogOut className="w-4 h-4" />
               Sair
@@ -152,8 +156,8 @@ export default function Sidebar({ open, onClose }) {
             <NavLink
               to="/login"
               onClick={onClose}
-              className="flex items-center gap-3 px-3 py-2.5 rounded-xl text-slate-400
-                hover:bg-white/[0.06] hover:text-slate-200 transition-all duration-150 text-sm font-medium font-sans"
+              className="flex items-center gap-3 px-3 py-2.5 rounded-xl text-white/50
+                hover:bg-white/[0.07] hover:text-white/90 transition-all duration-150 text-sm font-semibold"
             >
               <LogIn className="w-4 h-4" />
               Entrar
@@ -161,15 +165,15 @@ export default function Sidebar({ open, onClose }) {
             <NavLink
               to="/register"
               onClick={onClose}
-              className="flex items-center gap-3 px-3 py-2.5 rounded-xl text-slate-400
-                hover:bg-white/[0.06] hover:text-slate-200 transition-all duration-150 text-sm font-medium font-sans"
+              className="flex items-center gap-3 px-3 py-2.5 rounded-xl text-white/50
+                hover:bg-white/[0.07] hover:text-white/90 transition-all duration-150 text-sm font-semibold"
             >
               <UserPlus className="w-4 h-4" />
               Cadastrar
             </NavLink>
           </>
         )}
-        <p className="px-3 text-[11px] text-slate-700 font-sans">Lab02 · Flask + React</p>
+        <p className="px-3 text-[11px] text-white/20">Lab02 · Flask + React</p>
       </div>
     </aside>
   )

@@ -20,7 +20,7 @@ function Avatar({ cliente }) {
     )
   }
   return (
-    <div className="w-9 h-9 rounded-full bg-gradient-to-br from-blue-500 to-indigo-600
+    <div className="w-9 h-9 rounded-full bg-gradient-to-br from-[#78de1f] to-[#018444]
       flex items-center justify-center text-white font-bold text-sm ring-2 ring-white shadow shrink-0">
       {(cliente.nome ?? '?').charAt(0).toUpperCase()}
     </div>
@@ -29,7 +29,7 @@ function Avatar({ cliente }) {
 
 function StatCard({ icon: Icon, label, value, color }) {
   const colors = {
-    blue:  'bg-blue-50 text-blue-600 border-blue-100',
+    blue:  'bg-[#f2fde0] text-[#004521] border-[#c9f485]',
     green: 'bg-green-50 text-green-600 border-green-100',
     amber: 'bg-amber-50 text-amber-600 border-amber-100',
   }
@@ -68,7 +68,7 @@ function ClienteCard({ c, onDelete }) {
       <div className="mt-3 flex gap-2 pt-3 border-t border-slate-50">
         <Link to={`/clientes/${c.id}`}
           className="flex-1 flex items-center justify-center gap-1.5 py-1.5 rounded-lg bg-slate-50
-            hover:bg-blue-50 text-slate-500 hover:text-blue-600 text-xs font-medium transition-colors">
+            hover:bg-[#f2fde0] text-slate-500 hover:text-[#004521] text-xs font-medium transition-colors">
           <Eye className="w-3.5 h-3.5" /> Ver
         </Link>
         <Link to={`/clientes/${c.id}/editar`}
@@ -149,7 +149,7 @@ export default function ClienteListPage() {
               value={search} onChange={e => setSearch(e.target.value)}
               placeholder="Buscar por nome, CPF…"
               className="w-full pl-9 pr-3 py-2 text-sm bg-slate-50 border border-slate-100 rounded-xl
-                text-slate-700 placeholder-slate-300 focus:outline-none focus:ring-2 focus:ring-blue-500
+                text-slate-700 placeholder-slate-300 focus:outline-none focus:ring-2 focus:ring-[#78de1f]
                 focus:border-transparent focus:bg-white transition-all"
             />
           </div>
@@ -191,7 +191,7 @@ export default function ClienteListPage() {
                 <tbody>
                   {filtered.map((c, i) => (
                     <tr key={c.id}
-                      className={`border-b border-slate-50 hover:bg-blue-50/30 transition-colors group
+                      className={`border-b border-slate-50 hover:bg-[#f9fef0] transition-colors group
                         ${i % 2 === 1 ? 'bg-slate-50/40' : ''}`}>
                       <td className="px-5 py-3.5 text-slate-300 font-mono text-xs">{c.id}</td>
                       <td className="px-5 py-3.5">
@@ -214,7 +214,7 @@ export default function ClienteListPage() {
                       <td className="px-5 py-3.5">
                         <div className="flex items-center justify-center gap-1 opacity-0 group-hover:opacity-100 transition-opacity">
                           <Link to={`/clientes/${c.id}`}
-                            className="p-1.5 rounded-lg hover:bg-blue-100 text-slate-400 hover:text-blue-600 transition-colors" title="Ver">
+                            className="p-1.5 rounded-lg hover:bg-[#f2fde0] text-slate-400 hover:text-[#004521] transition-colors" title="Ver">
                             <Eye className="w-4 h-4" />
                           </Link>
                           <Link to={`/clientes/${c.id}/editar`}

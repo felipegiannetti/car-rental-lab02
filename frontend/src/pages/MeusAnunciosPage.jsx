@@ -9,7 +9,7 @@ import toast from 'react-hot-toast'
 const STATUS_META = {
   DISPONIVEL: { label: 'Disponivel', cls: 'bg-green-50 text-green-700 border-green-200', icon: CheckCircle2 },
   EM_USO: { label: 'Em uso', cls: 'bg-amber-50 text-amber-700 border-amber-200', icon: Car },
-  EM_NEGOCIACAO: { label: 'Em negociacao', cls: 'bg-blue-50 text-blue-700 border-blue-200', icon: HandCoins },
+  EM_NEGOCIACAO: { label: 'Em negociacao', cls: 'bg-[#f2fde0] text-[#004521] border-[#c9f485]', icon: HandCoins },
   INDISPONIVEL: { label: 'Indisponivel', cls: 'bg-rose-50 text-rose-700 border-rose-200', icon: XCircle },
 }
 
@@ -21,14 +21,15 @@ function StatusBadge({ status }) {
 
 function StatCard({ icon: Icon, label, value, color }) {
   const colors = {
-    blue: 'bg-blue-50 text-blue-600 border-blue-100',
-    green: 'bg-green-50 text-green-600 border-green-100',
-    amber: 'bg-amber-50 text-amber-600 border-amber-100',
+    blue:  { wrap: 'border-[#c9f485] bg-[#f2fde0]', text: 'text-[#004521]', icon: 'text-[#62b818]' },
+    green: { wrap: 'border-green-200 bg-green-50',   text: 'text-green-700', icon: 'text-green-600' },
+    amber: { wrap: 'border-amber-200 bg-amber-50',   text: 'text-amber-700', icon: 'text-amber-600' },
   }
+  const c = colors[color] ?? colors.blue
   return (
-    <div className={`rounded-2xl border p-4 flex items-center gap-3 ${colors[color]}`}>
-      <div className="w-10 h-10 rounded-xl bg-white/70 flex items-center justify-center shadow-sm shrink-0"><Icon className="w-5 h-5" /></div>
-      <div><p className="text-2xl font-bold">{value}</p><p className="text-xs font-medium opacity-70">{label}</p></div>
+    <div className={`rounded-2xl border p-4 flex items-center gap-3 ${c.wrap}`}>
+      <div className={`w-10 h-10 rounded-xl bg-white/70 flex items-center justify-center shadow-sm shrink-0 ${c.icon}`}><Icon className="w-5 h-5" /></div>
+      <div className={c.text}><p className="text-2xl font-bold">{value}</p><p className="text-xs font-medium opacity-70">{label}</p></div>
     </div>
   )
 }
@@ -105,7 +106,7 @@ export default function MeusAnunciosPage() {
         <div className="px-4 sm:px-5 py-4 border-b border-slate-50 flex items-center gap-3">
           <div className="relative flex-1 max-w-sm">
             <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-300" />
-            <input value={search} onChange={(e) => setSearch(e.target.value)} placeholder="Buscar por marca, modelo, placa..." className="w-full pl-9 pr-3 py-2 text-sm bg-slate-50 border border-slate-100 rounded-xl text-slate-700 placeholder-slate-300 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent focus:bg-white transition-all" />
+            <input value={search} onChange={(e) => setSearch(e.target.value)} placeholder="Buscar por marca, modelo, placa..." className="input-field pl-9" />
           </div>
           <span className="text-xs text-slate-400 ml-auto whitespace-nowrap">{filtered.length} itens</span>
         </div>
@@ -124,7 +125,7 @@ export default function MeusAnunciosPage() {
               <div key={automovel.id} className="rounded-2xl border border-slate-100 bg-white shadow-sm p-4 space-y-4">
                 <div className="flex items-start justify-between gap-3">
                   <div>
-                    <Link to={`/automoveis/${automovel.id}`} className="text-lg font-semibold text-slate-900 hover:text-blue-700 transition-colors">
+                    <Link to={`/automoveis/${automovel.id}`} className="text-lg font-semibold text-[#383838] hover:text-[#004521] transition-colors">
                       {automovel.marca} {automovel.modelo}
                     </Link>
                     <p className="text-sm text-slate-400 mt-1">{automovel.ano} - {automovel.placa}</p>

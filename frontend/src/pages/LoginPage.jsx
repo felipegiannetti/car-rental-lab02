@@ -18,7 +18,6 @@ export default function LoginPage() {
       toast.error('Preencha usuario e senha.')
       return
     }
-
     setLoading(true)
     try {
       const user = await authApi.login(form.nomeUsuario, form.senha)
@@ -33,116 +32,184 @@ export default function LoginPage() {
   }
 
   return (
-    <div className="relative min-h-screen flex items-center justify-center p-4 overflow-hidden">
+    <div className="relative min-h-screen flex overflow-hidden" style={{ background: '#f2f2f2' }}>
+
+      {/* ── Left panel – branding ── */}
       <div
-        className="absolute inset-0 bg-center bg-cover"
-        style={{
-          backgroundImage: "url('https://images.unsplash.com/photo-1492144534655-ae79c964c9d7?auto=format&fit=crop&w=1800&q=80')",
-        }}
-      />
-      <div className="absolute inset-0 bg-gradient-to-br from-slate-950/85 via-slate-900/75 to-slate-950/90" />
-      <div className="absolute inset-0 bg-[radial-gradient(circle_at_25%_20%,rgba(59,130,246,0.25),transparent_55%),radial-gradient(circle_at_75%_80%,rgba(14,165,233,0.2),transparent_50%)]" />
-      <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        <div className="absolute top-8 left-8 h-24 w-24 rounded-full border border-white/10" />
-        <div className="absolute bottom-10 right-10 h-32 w-32 rounded-full border border-white/10" />
+        className="hidden lg:flex lg:w-1/2 flex-col justify-between p-12 relative overflow-hidden"
+        style={{ background: 'linear-gradient(160deg, #012910 0%, #022015 60%, #011a0d 100%)' }}
+      >
+        {/* decorative rings */}
+        <div className="absolute -bottom-32 -left-32 w-96 h-96 rounded-full border border-white/[0.05]" />
+        <div className="absolute -bottom-16 -left-16 w-64 h-64 rounded-full border border-white/[0.07]" />
+        <div className="absolute top-1/3 right-0 w-48 h-48 rounded-full border border-white/[0.04]" />
+        {/* lime glow */}
+        <div
+          className="absolute bottom-0 left-0 w-80 h-80 rounded-full opacity-15 blur-3xl pointer-events-none"
+          style={{ background: '#78de1f' }}
+        />
+
+        {/* Logo */}
+        <div className="relative flex items-center gap-3">
+          <div
+            className="w-10 h-10 rounded-xl flex items-center justify-center shrink-0"
+            style={{ background: '#78de1f', boxShadow: '0 4px 16px rgba(120,222,31,0.4)' }}
+          >
+            <Car className="w-5 h-5" style={{ color: '#004521' }} />
+          </div>
+          <span className="text-white text-xl" style={{ fontFamily: '"Racing Sans One", sans-serif', letterSpacing: '0.03em' }}>
+            Car Rental
+          </span>
+        </div>
+
+        {/* Headline */}
+        <div className="relative space-y-5">
+          <div
+            className="inline-flex items-center gap-2 rounded-full px-3 py-1.5 text-xs font-semibold"
+            style={{ background: 'rgba(120,222,31,0.15)', color: '#78de1f', border: '1px solid rgba(120,222,31,0.25)' }}
+          >
+            Sistema de Aluguel de Carros
+          </div>
+          <h1 className="text-5xl text-white leading-tight" style={{ fontFamily: '"Racing Sans One", sans-serif' }}>
+            Encontre o carro perfeito para você
+          </h1>
+          <p className="text-white/50 text-base leading-relaxed max-w-sm">
+            Alugue ou compre seu próximo veículo com facilidade. Acesse centenas de anúncios e faça seu pedido em minutos.
+          </p>
+          <div className="flex flex-wrap gap-2 pt-2">
+            {['Anúncios verificados', 'Pedidos online', 'Gestão completa'].map((item) => (
+              <span
+                key={item}
+                className="text-xs font-semibold px-3 py-1.5 rounded-full"
+                style={{ background: 'rgba(255,255,255,0.07)', color: 'rgba(255,255,255,0.55)', border: '1px solid rgba(255,255,255,0.1)' }}
+              >
+                {item}
+              </span>
+            ))}
+          </div>
+        </div>
+
+        <p className="relative text-xs" style={{ color: 'rgba(255,255,255,0.2)' }}>
+          Lab02 · Flask + React · {new Date().getFullYear()}
+        </p>
       </div>
 
-      <div className="relative w-full max-w-sm">
-        <div className="flex flex-col items-center mb-8">
-          <div className="w-14 h-14 rounded-2xl bg-blue-600 flex items-center justify-center shadow-lg shadow-blue-500/30 mb-4">
-            <Car className="w-7 h-7 text-white" />
-          </div>
-          <h1 className="text-2xl font-bold text-white">Car Rental</h1>
-          <p className="text-sm text-slate-400 mt-1">Sistema de Aluguel de Carros</p>
-        </div>
+      {/* ── Right panel – form ── */}
+      <div className="w-full lg:w-1/2 flex items-center justify-center p-6 sm:p-10">
+        <div className="w-full max-w-sm space-y-8">
 
-        <div className="bg-white/5 backdrop-blur-xl border border-white/10 rounded-3xl p-8 shadow-2xl">
-          <h2 className="text-lg font-semibold text-white mb-2">Entrar na sua conta</h2>
-          <p className="text-sm text-slate-400 mb-6">
-            Visitantes podem navegar pelos carros sem login.
+          {/* Mobile logo */}
+          <div className="lg:hidden flex items-center gap-3">
+            <div className="w-9 h-9 rounded-xl flex items-center justify-center shrink-0" style={{ background: '#78de1f' }}>
+              <Car className="w-5 h-5" style={{ color: '#004521' }} />
+            </div>
+            <span style={{ fontFamily: '"Racing Sans One", sans-serif', fontSize: '1.15rem', color: '#004521', letterSpacing: '0.03em' }}>
+              Car Rental
+            </span>
+          </div>
+
+          {/* Heading */}
+          <div>
+            <h2 style={{ fontFamily: '"Racing Sans One", sans-serif', fontSize: '1.75rem', color: '#383838' }}>
+              Bem-vindo de volta
+            </h2>
+            <p className="mt-1.5 text-sm" style={{ color: '#5e5e5e' }}>
+              Visitantes podem navegar pelos carros sem login.
+            </p>
+          </div>
+
+          {/* Form card */}
+          <div
+            className="bg-white rounded-3xl p-8 space-y-5"
+            style={{ boxShadow: '0 4px 24px rgba(15,23,42,0.08)', border: '1px solid #d6d6d6' }}
+          >
+            <form onSubmit={handleSubmit} className="space-y-4">
+              <div>
+                <label className="block text-xs font-semibold uppercase tracking-widest mb-1.5" style={{ color: '#5e5e5e' }}>
+                  Usuário
+                </label>
+                <div className="relative">
+                  <User className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4" style={{ color: '#919191' }} />
+                  <input
+                    type="text"
+                    value={form.nomeUsuario}
+                    onChange={e => setForm(f => ({ ...f, nomeUsuario: e.target.value }))}
+                    placeholder="seu.usuario"
+                    autoComplete="username"
+                    className="w-full pl-10 pr-4 py-3 bg-white border rounded-2xl text-sm focus:outline-none transition-all"
+                    style={{ borderColor: '#d6d6d6', color: '#383838' }}
+                    onFocus={e => { e.target.style.boxShadow = '0 0 0 2px #78de1f'; e.target.style.borderColor = 'transparent' }}
+                    onBlur={e => { e.target.style.boxShadow = 'none'; e.target.style.borderColor = '#d6d6d6' }}
+                  />
+                </div>
+              </div>
+
+              <div>
+                <label className="block text-xs font-semibold uppercase tracking-widest mb-1.5" style={{ color: '#5e5e5e' }}>
+                  Senha
+                </label>
+                <div className="relative">
+                  <Lock className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4" style={{ color: '#919191' }} />
+                  <input
+                    type={showSenha ? 'text' : 'password'}
+                    value={form.senha}
+                    onChange={e => setForm(f => ({ ...f, senha: e.target.value }))}
+                    placeholder="••••••••"
+                    autoComplete="current-password"
+                    className="w-full pl-10 pr-10 py-3 bg-white border rounded-2xl text-sm focus:outline-none transition-all"
+                    style={{ borderColor: '#d6d6d6', color: '#383838' }}
+                    onFocus={e => { e.target.style.boxShadow = '0 0 0 2px #78de1f'; e.target.style.borderColor = 'transparent' }}
+                    onBlur={e => { e.target.style.boxShadow = 'none'; e.target.style.borderColor = '#d6d6d6' }}
+                  />
+                  <button
+                    type="button"
+                    onClick={() => setShowSenha(s => !s)}
+                    className="absolute right-3 top-1/2 -translate-y-1/2 transition-colors"
+                    style={{ color: '#919191' }}
+                  >
+                    {showSenha ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
+                  </button>
+                </div>
+              </div>
+
+              <button
+                type="submit"
+                disabled={loading}
+                className="w-full py-3 rounded-2xl font-semibold text-sm transition-all duration-150
+                  disabled:opacity-50 disabled:cursor-not-allowed
+                  flex items-center justify-center gap-2 mt-1 hover:-translate-y-px active:translate-y-0"
+                style={{ background: '#78de1f', color: '#004521', boxShadow: '0 4px 16px rgba(120,222,31,0.35)' }}
+              >
+                {loading
+                  ? <><span className="w-4 h-4 border-2 border-t-transparent rounded-full animate-spin" style={{ borderColor: '#004521', borderTopColor: 'transparent' }} /> Entrando...</>
+                  : 'Entrar'}
+              </button>
+            </form>
+
+            <div className="pt-4 border-t space-y-2.5" style={{ borderColor: '#d6d6d6' }}>
+              <Link
+                to="/register"
+                className="w-full inline-flex items-center justify-center gap-2 rounded-2xl border
+                  bg-white px-4 py-3 text-sm font-semibold transition-colors hover:bg-[#f5f5f5]"
+                style={{ borderColor: '#d6d6d6', color: '#383838' }}
+              >
+                Criar conta de cliente
+              </Link>
+              <Link
+                to="/automoveis"
+                className="w-full inline-flex items-center justify-center gap-1.5 text-sm transition-colors"
+                style={{ color: '#5e5e5e' }}
+              >
+                Continuar como visitante
+                <ArrowRight className="w-4 h-4" />
+              </Link>
+            </div>
+          </div>
+
+          <p className="text-center text-xs" style={{ color: '#919191' }}>
+            Conta administrativa: <span className="font-semibold" style={{ color: '#5e5e5e' }}>admin / admin</span>
           </p>
-
-          <form onSubmit={handleSubmit} className="space-y-4">
-            <div>
-              <label className="block text-xs font-semibold text-slate-400 uppercase tracking-wider mb-1.5">
-                Usuario
-              </label>
-              <div className="relative">
-                <User className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-500" />
-                <input
-                  type="text"
-                  value={form.nomeUsuario}
-                  onChange={e => setForm(f => ({ ...f, nomeUsuario: e.target.value }))}
-                  placeholder="seu.usuario"
-                  autoComplete="username"
-                  className="w-full pl-10 pr-4 py-3 bg-white/5 border border-white/10 rounded-xl
-                    text-white placeholder-slate-500 text-sm focus:outline-none
-                    focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all"
-                />
-              </div>
-            </div>
-
-            <div>
-              <label className="block text-xs font-semibold text-slate-400 uppercase tracking-wider mb-1.5">
-                Senha
-              </label>
-              <div className="relative">
-                <Lock className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-500" />
-                <input
-                  type={showSenha ? 'text' : 'password'}
-                  value={form.senha}
-                  onChange={e => setForm(f => ({ ...f, senha: e.target.value }))}
-                  placeholder="••••••••"
-                  autoComplete="current-password"
-                  className="w-full pl-10 pr-10 py-3 bg-white/5 border border-white/10 rounded-xl
-                    text-white placeholder-slate-500 text-sm focus:outline-none
-                    focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all"
-                />
-                <button
-                  type="button"
-                  onClick={() => setShowSenha(s => !s)}
-                  className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-500 hover:text-slate-300 transition-colors"
-                >
-                  {showSenha ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
-                </button>
-              </div>
-            </div>
-
-            <button
-              type="submit"
-              disabled={loading}
-              className="w-full py-3 bg-blue-600 hover:bg-blue-500 active:bg-blue-700
-                text-white font-semibold rounded-xl transition-all duration-150
-                disabled:opacity-50 disabled:cursor-not-allowed shadow-lg shadow-blue-500/20
-                flex items-center justify-center gap-2 mt-2"
-            >
-              {loading ? (
-                <><span className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin" /> Entrando...</>
-              ) : 'Entrar'}
-            </button>
-          </form>
-
-          <div className="mt-6 pt-5 border-t border-white/10 space-y-3 text-sm">
-            <Link
-              to="/register"
-              className="w-full inline-flex items-center justify-center gap-2 rounded-xl border border-white/10
-                bg-white/5 px-4 py-3 text-slate-200 hover:bg-white/10 transition-colors"
-            >
-              Criar conta de cliente
-            </Link>
-            <Link
-              to="/automoveis"
-              className="w-full inline-flex items-center justify-center gap-2 text-slate-400 hover:text-white transition-colors"
-            >
-              Continuar como visitante
-              <ArrowRight className="w-4 h-4" />
-            </Link>
-          </div>
         </div>
-
-        <p className="text-center text-xs text-slate-500 mt-6">
-          Conta administrativa padrao: <span className="text-slate-300">admin / admin</span>
-        </p>
       </div>
     </div>
   )

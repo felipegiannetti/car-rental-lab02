@@ -33,7 +33,7 @@ function FotoUpload({ fotoUrl, onFoto }) {
         onDragLeave={() => setDrag(false)}
         onDrop={(e) => { e.preventDefault(); setDrag(false); processFile(e.dataTransfer.files[0]) }}
         className={`relative w-24 h-24 sm:w-28 sm:h-28 rounded-full cursor-pointer overflow-hidden ring-4 transition-all duration-200
-          ${drag ? 'ring-blue-400 scale-105' : 'ring-white shadow-lg hover:ring-blue-300'}`}
+          ${drag ? 'ring-[#78de1f] scale-105' : 'ring-white shadow-lg hover:ring-[#a8e64e]'}`}
       >
         {preview ? (
           <img src={preview} alt="Foto" className="w-full h-full object-cover" />
@@ -62,10 +62,10 @@ function FotoUpload({ fotoUrl, onFoto }) {
 // ── Seção do formulário ───────────────────────────────────────────────────────
 function Section({ icon: Icon, title, children, badge }) {
   return (
-    <div className="bg-white rounded-2xl shadow-sm border border-slate-100 overflow-hidden">
-      <div className="flex items-center gap-3 px-5 sm:px-6 py-4 border-b border-slate-50 bg-slate-50/70">
-        <div className="w-7 h-7 rounded-lg bg-blue-100 flex items-center justify-center shrink-0">
-          <Icon className="w-4 h-4 text-blue-600" />
+    <div className="bg-white rounded-2xl shadow-sm border border-[#d6d6d6] overflow-hidden">
+      <div className="flex items-center gap-3 px-5 sm:px-6 py-4 border-b border-[#efefef] bg-[#fafafa]">
+        <div className="w-7 h-7 rounded-lg bg-[#f2fde0] flex items-center justify-center shrink-0">
+          <Icon className="w-4 h-4 text-[#004521]" />
         </div>
         <span className="text-sm font-semibold text-slate-700">{title}</span>
         {badge && <span className="ml-auto text-xs text-slate-400 bg-white border border-slate-200 px-2 py-0.5 rounded-full whitespace-nowrap">{badge}</span>}
@@ -94,8 +94,8 @@ function Field({ label, error, children, required }) {
 
 const inputCls = (err) =>
   `w-full px-3 py-2.5 bg-white border rounded-xl text-sm text-slate-800 placeholder-slate-300
-   focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-150
-   ${err ? 'border-red-300 bg-red-50/30' : 'border-slate-200'}`
+   focus:outline-none focus:ring-2 focus:ring-[#78de1f] focus:border-transparent transition-all duration-150
+   ${err ? 'border-red-300 bg-red-50/30' : 'border-[#d6d6d6]'}`
 
 // ── Page ──────────────────────────────────────────────────────────────────────
 export default function ClienteFormPage() {
@@ -284,7 +284,7 @@ export default function ClienteFormPage() {
                     }}
                   />
                   {cpfStatus === 'checking' && (
-                    <div className="absolute right-2.5 top-1/2 -translate-y-1/2 w-3.5 h-3.5 border-2 border-blue-400 border-t-transparent rounded-full animate-spin" />
+                    <div className="absolute right-2.5 top-1/2 -translate-y-1/2 w-3.5 h-3.5 border-2 border-[#78de1f] border-t-transparent rounded-full animate-spin" />
                   )}
                   {cpfStatus && cpfStatus !== 'checking' && (
                     <AlertCircle className="absolute right-2.5 top-1/2 -translate-y-1/2 w-4 h-4 text-amber-500" />
@@ -320,7 +320,7 @@ export default function ClienteFormPage() {
             <div className="space-y-2">
               <label className="flex items-center gap-2 cursor-pointer select-none w-fit">
                 <input type="checkbox" {...register('semProfissao')}
-                  className="w-4 h-4 rounded accent-blue-600" />
+                  className="w-4 h-4 rounded accent-[#78de1f]" />
                 <span className="text-sm text-slate-600">Não possuo profissão</span>
               </label>
 

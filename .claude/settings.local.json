@@ -3,7 +3,8 @@
     "allow": [
       "Bash(python -c \"from pypdf import PdfReader; r=PdfReader\\('C:/Users/felip/Downloads/LABORATÓRIO 02 - Sistema de Aluguel de Carros \\(2\\).pdf'\\); [print\\(f'=== PAGE {i+1} ===\\\\n{p.extract_text\\(\\)}\\\\n'\\) for i,p in enumerate\\(r.pages\\)]\")",
       "Bash(pip install:*)",
-      "Bash(python -c \"from backend.app import create_app; app = create_app\\(\\); print\\('OK - app criado com sucesso'\\)\")"
+      "Bash(python -c \"from backend.app import create_app; app = create_app\\(\\); print\\('OK - app criado com sucesso'\\)\")",
+      "WebFetch(domain:meoo.localiza.com)"
     ]
   }
 }

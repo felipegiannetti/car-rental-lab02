@@ -9,10 +9,10 @@ import toast from 'react-hot-toast'
 
 function Section({ icon: Icon, title, children }) {
   return (
-    <div className="bg-white rounded-2xl shadow-sm border border-slate-100 overflow-hidden">
-      <div className="flex items-center gap-3 px-5 sm:px-6 py-4 border-b border-slate-50 bg-slate-50/70">
-        <div className="w-7 h-7 rounded-lg bg-blue-100 flex items-center justify-center shrink-0"><Icon className="w-4 h-4 text-blue-600" /></div>
-        <span className="text-sm font-semibold text-slate-700">{title}</span>
+    <div className="bg-white rounded-2xl border border-[#d6d6d6] overflow-hidden" style={{ boxShadow: '0 2px 4px 1px rgba(15,23,42,0.06)' }}>
+      <div className="flex items-center gap-3 px-5 sm:px-6 py-4 border-b border-[#efefef] bg-[#fafafa]">
+        <div className="w-7 h-7 rounded-lg flex items-center justify-center shrink-0" style={{ background: '#f2fde0' }}><Icon className="w-4 h-4" style={{ color: '#004521' }} /></div>
+        <span className="text-sm font-semibold text-[#383838]">{title}</span>
       </div>
       <div className="p-5 sm:p-6">{children}</div>
     </div>
@@ -30,7 +30,7 @@ function Field({ label, error, children, required }) {
 }
 
 const inputCls = (err) =>
-  `w-full px-3 py-2.5 bg-white border rounded-xl text-sm text-slate-800 placeholder-slate-300 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all ${err ? 'border-red-300 bg-red-50/30' : 'border-slate-200'}`
+  `w-full px-3 py-2.5 bg-white border rounded-xl text-sm text-slate-800 placeholder-slate-300 focus:outline-none focus:ring-2 focus:ring-[#78de1f] focus:border-transparent transition-all ${err ? 'border-red-300 bg-red-50/30' : 'border-[#d6d6d6]'}`
 
 export default function PedidoFormPage() {
   const { user, isAdmin } = useAuth()
@@ -138,31 +138,37 @@ export default function PedidoFormPage() {
         </div>
       </div>
 
-      <div className="bg-blue-50 border border-blue-100 rounded-2xl px-5 py-4 flex items-center gap-3">
-        <div className="w-9 h-9 rounded-full bg-blue-600 flex items-center justify-center text-white font-bold text-sm shrink-0">{user.nome?.charAt(0).toUpperCase()}</div>
+      <div className="rounded-2xl px-5 py-4 flex items-center gap-3" style={{ background: '#f2fde0', border: '1px solid #c9f485' }}>
+        <div className="w-9 h-9 rounded-full flex items-center justify-center text-white font-bold text-sm shrink-0" style={{ background: '#004521' }}>{user.nome?.charAt(0).toUpperCase()}</div>
         <div>
-          <p className="text-sm font-semibold text-blue-800">{user.nome}</p>
-          <p className="text-xs text-blue-500">@{user.nomeUsuario} - Solicitante do pedido</p>
+          <p className="text-sm font-semibold" style={{ color: '#004521' }}>{user.nome}</p>
+          <p className="text-xs" style={{ color: '#62b818' }}>@{user.nomeUsuario} - Solicitante do pedido</p>
         </div>
       </div>
 
       <form onSubmit={handleSubmit(onSubmit)} className="space-y-5">
         <Section icon={ShoppingBag} title="Tipo do pedido">
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-            <label className={`rounded-2xl border p-4 cursor-pointer transition-all ${tipoPedido === 'ALUGUEL' ? 'border-blue-300 bg-blue-50' : 'border-slate-200 bg-white'} ${automovelSelecionado && !automovelSelecionado.aceitaAluguel ? 'opacity-50 cursor-not-allowed' : ''}`}>
+            <label
+              className={`rounded-2xl border p-4 cursor-pointer transition-all ${automovelSelecionado && !automovelSelecionado.aceitaAluguel ? 'opacity-50 cursor-not-allowed' : ''}`}
+              style={tipoPedido === 'ALUGUEL' ? { borderColor: '#78de1f', background: '#f2fde0' } : { borderColor: '#e2e8f0', background: '#fff' }}
+            >
               <input type="radio" value="ALUGUEL" {...register('tipoPedido', { required: 'Obrigatorio' })} className="sr-only" disabled={automovelSelecionado && !automovelSelecionado.aceitaAluguel} />
               <div className="flex items-start gap-3">
-                <div className="w-10 h-10 rounded-xl bg-blue-100 flex items-center justify-center shrink-0"><KeyRound className="w-5 h-5 text-blue-600" /></div>
+                <div className="w-10 h-10 rounded-xl flex items-center justify-center shrink-0" style={{ background: '#f2fde0' }}><KeyRound className="w-5 h-5" style={{ color: '#004521' }} /></div>
                 <div>
                   <p className="font-semibold text-slate-900">Alugar</p>
                   <p className="text-sm text-slate-500">{automovelSelecionado && !automovelSelecionado.aceitaAluguel ? 'Este anuncio nao aceita aluguel.' : 'Seleciona um periodo e aguarda aprovacao do dono do anuncio.'}</p>
                 </div>
               </div>
             </label>
-            <label className={`rounded-2xl border p-4 cursor-pointer transition-all ${tipoPedido === 'COMPRA' ? 'border-blue-300 bg-blue-50' : 'border-slate-200 bg-white'} ${automovelSelecionado && !automovelSelecionado.aceitaCompra ? 'opacity-50 cursor-not-allowed' : ''}`}>
+            <label
+              className={`rounded-2xl border p-4 cursor-pointer transition-all ${automovelSelecionado && !automovelSelecionado.aceitaCompra ? 'opacity-50 cursor-not-allowed' : ''}`}
+              style={tipoPedido === 'COMPRA' ? { borderColor: '#78de1f', background: '#f2fde0' } : { borderColor: '#e2e8f0', background: '#fff' }}
+            >
               <input type="radio" value="COMPRA" {...register('tipoPedido', { required: 'Obrigatorio' })} className="sr-only" disabled={automovelSelecionado && !automovelSelecionado.aceitaCompra} />
               <div className="flex items-start gap-3">
-                <div className="w-10 h-10 rounded-xl bg-blue-100 flex items-center justify-center shrink-0"><ShoppingBag className="w-5 h-5 text-blue-600" /></div>
+                <div className="w-10 h-10 rounded-xl flex items-center justify-center shrink-0" style={{ background: '#f2fde0' }}><ShoppingBag className="w-5 h-5" style={{ color: '#004521' }} /></div>
                 <div>
                   <p className="font-semibold text-slate-900">Comprar</p>
                   <p className="text-sm text-slate-500">{automovelSelecionado && !automovelSelecionado.aceitaCompra ? 'Este anuncio nao aceita compra.' : 'Se o dono aprovar, voce recebe os dados de contato para negociar.'}</p>

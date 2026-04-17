@@ -8,7 +8,7 @@ import toast from 'react-hot-toast'
 
 const STATUS_META = {
   PENDENTE: { label: 'Pendente', cls: 'bg-amber-50 text-amber-700 border-amber-200', icon: Clock },
-  EM_ANALISE: { label: 'Em analise', cls: 'bg-blue-50 text-blue-700 border-blue-200', icon: Search },
+  EM_ANALISE: { label: 'Em analise', cls: 'bg-[#f2fde0] text-[#004521] border-[#c9f485]', icon: Search },
   APROVADO: { label: 'Aprovado', cls: 'bg-green-50 text-green-700 border-green-200', icon: CheckCircle2 },
   REPROVADO: { label: 'Recusado', cls: 'bg-red-50 text-red-700 border-red-200', icon: XCircle },
 }
@@ -91,7 +91,7 @@ export default function PedidosRecebidosPage() {
       </div>
 
       <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
-        <div className="rounded-2xl border border-blue-100 bg-blue-50 p-4"><p className="text-2xl font-bold text-blue-600">{pedidos.length}</p><p className="text-xs text-blue-500 mt-1">Total recebidos</p></div>
+        <div className="rounded-2xl border p-4" style={{ borderColor: '#c9f485', background: '#f2fde0' }}><p className="text-2xl font-bold" style={{ color: '#004521' }}>{pedidos.length}</p><p className="text-xs mt-1" style={{ color: '#62b818' }}>Total recebidos</p></div>
         <div className="rounded-2xl border border-amber-100 bg-amber-50 p-4"><p className="text-2xl font-bold text-amber-600">{pendentes}</p><p className="text-xs text-amber-500 mt-1">Aguardando decisao</p></div>
         <div className="rounded-2xl border border-green-100 bg-green-50 p-4"><p className="text-2xl font-bold text-green-600">{aprovados}</p><p className="text-xs text-green-500 mt-1">Aprovados</p></div>
       </div>
@@ -100,11 +100,11 @@ export default function PedidosRecebidosPage() {
         <div className="px-4 sm:px-5 py-4 border-b border-slate-50 flex flex-wrap items-center gap-3">
           <div className="relative flex-1 min-w-[220px]">
             <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-300" />
-            <input value={search} onChange={(e) => setSearch(e.target.value)} placeholder="Buscar por carro, cliente ou tipo..." className="w-full pl-9 pr-3 py-2 text-sm bg-slate-50 border border-slate-100 rounded-xl text-slate-700 placeholder-slate-300 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent focus:bg-white transition-all" />
+            <input value={search} onChange={(e) => setSearch(e.target.value)} placeholder="Buscar por carro, cliente ou tipo..." className="w-full pl-9 pr-3 py-2 text-sm bg-slate-50 border border-slate-100 rounded-xl text-slate-700 placeholder-slate-300 focus:outline-none focus:ring-2 focus:ring-[#78de1f] focus:border-transparent focus:bg-white transition-all" />
           </div>
           <div className="relative min-w-[180px]">
             <Filter className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-300" />
-            <select value={statusFilter} onChange={(e) => setStatusFilter(e.target.value)} className="w-full appearance-none pl-9 pr-3 py-2 text-sm bg-slate-50 border border-slate-100 rounded-xl text-slate-700 focus:outline-none focus:ring-2 focus:ring-blue-500">
+            <select value={statusFilter} onChange={(e) => setStatusFilter(e.target.value)} className="w-full appearance-none pl-9 pr-3 py-2 text-sm bg-slate-50 border border-slate-100 rounded-xl text-slate-700 focus:outline-none focus:ring-2 focus:ring-[#78de1f]">
               <option value="TODOS">Todos os status</option>
               <option value="PENDENTE">Pendentes</option>
               <option value="APROVADO">Aprovados</option>

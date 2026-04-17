@@ -8,7 +8,7 @@ import toast from 'react-hot-toast'
 
 const STATUS_META = {
   PENDENTE: { label: 'Pendente', cls: 'bg-amber-50 text-amber-700 border-amber-200', dot: 'bg-amber-400', icon: Clock },
-  EM_ANALISE: { label: 'Em analise', cls: 'bg-blue-50 text-blue-700 border-blue-200', dot: 'bg-blue-400', icon: Search },
+  EM_ANALISE: { label: 'Em analise', cls: 'bg-[#f2fde0] text-[#004521] border-[#c9f485]', dot: 'bg-[#78de1f]', icon: Search },
   APROVADO: { label: 'Aprovado', cls: 'bg-green-50 text-green-700 border-green-200', dot: 'bg-green-500', icon: CheckCircle2 },
   REPROVADO: { label: 'Reprovado', cls: 'bg-red-50 text-red-700 border-red-200', dot: 'bg-red-500', icon: XCircle },
   CANCELADO: { label: 'Cancelado', cls: 'bg-slate-100 text-slate-500 border-slate-200', dot: 'bg-slate-400', icon: Ban },
@@ -31,10 +31,10 @@ function InfoField({ label, value }) {
 
 function Section({ icon: Icon, title, children }) {
   return (
-    <div className="bg-white rounded-2xl shadow-sm border border-slate-100 overflow-hidden">
-      <div className="flex items-center gap-3 px-5 sm:px-6 py-4 border-b border-slate-50 bg-slate-50/70">
-        <div className="w-7 h-7 rounded-lg bg-blue-100 flex items-center justify-center shrink-0"><Icon className="w-4 h-4 text-blue-600" /></div>
-        <span className="text-sm font-semibold text-slate-700">{title}</span>
+    <div className="bg-white rounded-2xl border border-[#d6d6d6] overflow-hidden" style={{ boxShadow: '0 2px 4px 1px rgba(15,23,42,0.06)' }}>
+      <div className="flex items-center gap-3 px-5 sm:px-6 py-4 border-b border-[#efefef] bg-[#fafafa]">
+        <div className="w-7 h-7 rounded-lg flex items-center justify-center shrink-0" style={{ background: '#f2fde0' }}><Icon className="w-4 h-4" style={{ color: '#004521' }} /></div>
+        <span className="text-sm font-semibold text-[#383838]">{title}</span>
       </div>
       <div className="p-5 sm:p-6">{children}</div>
     </div>
@@ -115,9 +115,9 @@ export default function PedidoDetailPage() {
   return (
     <div className="max-w-3xl mx-auto space-y-5">
       <div className="bg-white rounded-2xl shadow-sm border border-slate-100 overflow-hidden">
-        <div className={`h-16 ${pedido.status === 'APROVADO' ? 'bg-gradient-to-r from-green-500 to-emerald-600' : pedido.status === 'REPROVADO' ? 'bg-gradient-to-r from-red-500 to-rose-600' : pedido.status === 'CANCELADO' ? 'bg-gradient-to-r from-slate-400 to-slate-500' : pedido.status === 'EM_ANALISE' ? 'bg-gradient-to-r from-blue-500 to-indigo-600' : 'bg-gradient-to-r from-amber-500 to-orange-500'}`} />
+        <div className={`h-16 ${pedido.status === 'APROVADO' ? 'bg-gradient-to-r from-green-500 to-emerald-600' : pedido.status === 'REPROVADO' ? 'bg-gradient-to-r from-red-500 to-rose-600' : pedido.status === 'CANCELADO' ? 'bg-gradient-to-r from-slate-400 to-slate-500' : pedido.status === 'EM_ANALISE' ? 'bg-gradient-to-r from-[#78de1f] to-[#4b8d12]' : 'bg-gradient-to-r from-amber-500 to-orange-500'}`} />
         <div className="px-5 sm:px-6 -mt-6 flex items-end justify-between gap-4 pb-5">
-          <div className={`w-12 h-12 rounded-2xl flex items-center justify-center shadow-lg ring-4 ring-white ${pedido.status === 'APROVADO' ? 'bg-green-500' : pedido.status === 'REPROVADO' ? 'bg-red-500' : pedido.status === 'CANCELADO' ? 'bg-slate-400' : pedido.status === 'EM_ANALISE' ? 'bg-blue-500' : 'bg-amber-500'}`}>
+          <div className={`w-12 h-12 rounded-2xl flex items-center justify-center shadow-lg ring-4 ring-white ${pedido.status === 'APROVADO' ? 'bg-green-500' : pedido.status === 'REPROVADO' ? 'bg-red-500' : pedido.status === 'CANCELADO' ? 'bg-slate-400' : pedido.status === 'EM_ANALISE' ? 'bg-[#78de1f]' : 'bg-amber-500'}`}>
             {isCompra ? <ShoppingBag className="w-6 h-6 text-white" /> : <Car className="w-6 h-6 text-white" />}
           </div>
           <div className="flex items-center gap-2 mt-8">

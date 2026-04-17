@@ -7,9 +7,8 @@ export default function Layout() {
   const [sidebarOpen, setSidebarOpen] = useState(false)
 
   return (
-    <div className="min-h-screen bg-[#f0f4ff]">
+    <div className="min-h-screen bg-[#f2f2f2]">
 
-      {/* Mobile backdrop */}
       {sidebarOpen && (
         <div
           className="fixed inset-0 bg-black/60 backdrop-blur-sm z-20 md:hidden"
@@ -24,20 +23,25 @@ export default function Layout() {
         {/* Mobile top bar */}
         <header
           className="md:hidden flex items-center gap-3 px-4 py-3 sticky top-0 z-10 border-b border-white/[0.07]"
-          style={{ background: 'linear-gradient(160deg, #080d1a 0%, #0d1426 100%)' }}
+          style={{ background: 'linear-gradient(175deg, #012910 0%, #022015 100%)' }}
         >
           <button
             onClick={() => setSidebarOpen(true)}
-            className="p-1.5 rounded-xl text-slate-400 hover:text-white hover:bg-white/10 transition-all"
+            className="p-1.5 rounded-xl text-white/50 hover:text-white hover:bg-white/10 transition-all"
             aria-label="Abrir menu"
           >
             <Menu className="w-5 h-5" />
           </button>
           <div className="flex items-center gap-2">
-            <div className="w-7 h-7 rounded-lg bg-gradient-to-br from-brand-500 to-brand-700 flex items-center justify-center shadow-brand">
-              <Car className="w-4 h-4 text-white" />
+            <div
+              className="w-7 h-7 rounded-lg flex items-center justify-center"
+              style={{ background: '#78de1f' }}
+            >
+              <Car className="w-4 h-4" style={{ color: '#004521' }} />
             </div>
-            <span className="font-display text-white text-base tracking-wide">Car Rental</span>
+            <span className="text-white text-base" style={{ fontFamily: '"Racing Sans One", sans-serif', letterSpacing: '0.03em' }}>
+              Car Rental
+            </span>
           </div>
         </header>
 

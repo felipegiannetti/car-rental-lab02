@@ -9,7 +9,7 @@ import toast from 'react-hot-toast'
 const STATUS_META = {
   DISPONIVEL: { label: 'Disponivel', cls: 'bg-green-50 text-green-700 border-green-200', icon: CheckCircle2 },
   EM_USO: { label: 'Em uso', cls: 'bg-amber-50 text-amber-700 border-amber-200', icon: Car },
-  EM_NEGOCIACAO: { label: 'Em negociacao', cls: 'bg-blue-50 text-blue-700 border-blue-200', icon: HandCoins },
+  EM_NEGOCIACAO: { label: 'Em negociacao', cls: 'bg-[#f2fde0] text-[#004521] border-[#c9f485]', icon: HandCoins },
   INDISPONIVEL: { label: 'Indisponivel', cls: 'bg-rose-50 text-rose-700 border-rose-200', icon: XCircle },
 }
 
@@ -30,10 +30,10 @@ function InfoField({ label, value }) {
 
 function Section({ icon: Icon, title, children }) {
   return (
-    <div className="bg-white rounded-2xl shadow-sm border border-slate-100 overflow-hidden">
-      <div className="flex items-center gap-3 px-5 sm:px-6 py-4 border-b border-slate-50 bg-slate-50/70">
-        <div className="w-7 h-7 rounded-lg bg-blue-100 flex items-center justify-center shrink-0"><Icon className="w-4 h-4 text-blue-600" /></div>
-        <span className="text-sm font-semibold text-slate-700">{title}</span>
+    <div className="bg-white rounded-2xl border border-[#d6d6d6] overflow-hidden" style={{ boxShadow: '0 2px 4px 1px rgba(15,23,42,0.06)' }}>
+      <div className="flex items-center gap-3 px-5 sm:px-6 py-4 border-b border-[#efefef] bg-[#fafafa]">
+        <div className="w-7 h-7 rounded-lg flex items-center justify-center shrink-0" style={{ background: '#f2fde0' }}><Icon className="w-4 h-4" style={{ color: '#004521' }} /></div>
+        <span className="text-sm font-semibold text-[#383838]">{title}</span>
       </div>
       <div className="p-5 sm:p-6">{children}</div>
     </div>

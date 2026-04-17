@@ -17,10 +17,10 @@ function InfoField({ label, value }) {
 
 function Section({ icon: Icon, title, children }) {
   return (
-    <div className="bg-white rounded-2xl shadow-sm border border-slate-100 overflow-hidden">
-      <div className="flex items-center gap-3 px-5 sm:px-6 py-4 border-b border-slate-50 bg-slate-50/70">
-        <div className="w-7 h-7 rounded-lg bg-blue-100 flex items-center justify-center shrink-0">
-          <Icon className="w-4 h-4 text-blue-600" />
+    <div className="bg-white rounded-2xl shadow-sm border border-[#d6d6d6] overflow-hidden">
+      <div className="flex items-center gap-3 px-5 sm:px-6 py-4 border-b border-[#efefef] bg-[#fafafa]">
+        <div className="w-7 h-7 rounded-lg bg-[#f2fde0] flex items-center justify-center shrink-0">
+          <Icon className="w-4 h-4 text-[#004521]" />
         </div>
         <span className="text-sm font-semibold text-slate-700">{title}</span>
       </div>
@@ -69,9 +69,8 @@ export default function ClienteDetailPage() {
     <div className="max-w-2xl mx-auto space-y-5">
 
       {/* Cabeçalho com foto */}
-      <div className="bg-white rounded-2xl shadow-sm border border-slate-100 overflow-hidden">
-        {/* Capa azul */}
-        <div className="h-20 sm:h-24 bg-gradient-to-r from-blue-600 to-indigo-600" />
+      <div className="bg-white rounded-2xl shadow-sm border border-[#d6d6d6] overflow-hidden">
+        <div className="h-20 sm:h-24" style={{ background: 'linear-gradient(135deg, #012910 0%, #022015 58%, #01602a 100%)' }} />
 
         {/* Avatar — sobrepõe a capa */}
         <div className="px-5 sm:px-6 -mt-10">
@@ -83,7 +82,7 @@ export default function ClienteDetailPage() {
               className="w-20 h-20 rounded-2xl object-cover ring-4 ring-white shadow-lg"
             />
           ) : (
-            <div className="w-20 h-20 rounded-2xl bg-gradient-to-br from-blue-500 to-indigo-600
+            <div className="w-20 h-20 rounded-2xl bg-gradient-to-br from-[#78de1f] to-[#018444]
               flex items-center justify-center text-white text-2xl font-bold ring-4 ring-white shadow-lg">
               {cliente.nome.charAt(0).toUpperCase()}
             </div>
@@ -97,7 +96,7 @@ export default function ClienteDetailPage() {
             <div className="flex flex-wrap items-center gap-2 mt-0.5">
               <span className="text-xs text-slate-400">@{cliente.nomeUsuario}</span>
               <span className="text-slate-200">·</span>
-              <span className="inline-flex items-center gap-1 text-xs bg-blue-50 text-blue-600 px-2 py-0.5 rounded-full font-medium">
+              <span className="inline-flex items-center gap-1 text-xs bg-[#f2fde0] text-[#004521] px-2 py-0.5 rounded-full font-medium">
                 <BadgeCheck className="w-3 h-3" />{cliente.tipoUsuario}
               </span>
             </div>
@@ -159,9 +158,9 @@ export default function ClienteDetailPage() {
                 ))}
               </tbody>
               <tfoot>
-                <tr className="bg-gradient-to-r from-blue-50 to-indigo-50 border-t-2 border-blue-200">
-                  <td colSpan={2} className="px-4 py-3 text-right text-sm font-bold text-blue-700">Total</td>
-                  <td className="px-4 py-3 text-right font-mono font-bold text-blue-700">{fmt(total)}</td>
+                <tr className="border-t-2 border-[#c9f485]" style={{ background: 'linear-gradient(90deg, #f2fde0 0%, #ecfbd2 100%)' }}>
+                  <td colSpan={2} className="px-4 py-3 text-right text-sm font-bold text-[#004521]">Total</td>
+                  <td className="px-4 py-3 text-right font-mono font-bold text-[#004521]">{fmt(total)}</td>
                 </tr>
               </tfoot>
             </table>

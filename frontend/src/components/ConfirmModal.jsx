@@ -7,8 +7,8 @@ const TONE_META = {
     buttonClass: 'btn-danger disabled:opacity-50',
   },
   primary: {
-    iconBg: 'bg-blue-100',
-    iconColor: 'text-blue-600',
+    iconBg: 'bg-[#f2fde0]',
+    iconColor: 'text-[#004521]',
     buttonClass: 'btn-primary disabled:opacity-50',
   },
   secondary: {

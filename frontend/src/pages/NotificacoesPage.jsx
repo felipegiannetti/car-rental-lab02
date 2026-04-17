@@ -78,7 +78,7 @@ export default function NotificacoesPage() {
           <h1 className="text-xl sm:text-2xl font-bold text-slate-900">Notificacoes</h1>
           <p className="text-sm text-slate-400 mt-0.5">Acompanhe aprovacoes e recusas dos pedidos que voce fez.</p>
         </div>
-        <div className="rounded-2xl border border-blue-100 bg-blue-50 px-4 py-3 text-sm text-blue-700">
+        <div className="rounded-2xl px-4 py-3 text-sm" style={{ background: '#f2fde0', border: '1px solid #c9f485', color: '#004521' }}>
           {notificacoes.length} notificacoes no total
         </div>
       </div>
@@ -138,7 +138,7 @@ export default function NotificacoesPage() {
                         </div>
                         <div className="rounded-xl bg-white/80 px-3 py-2">
                           <p className="text-xs uppercase tracking-wide text-slate-400">Detalhes</p>
-                          <Link to={`/pedidos/${pedido.id}`} className="mt-1 inline-flex text-sm font-medium text-blue-700 hover:text-blue-800">Abrir pedido</Link>
+                          <Link to={`/pedidos/${pedido.id}`} className="mt-1 inline-flex text-sm font-medium" style={{ color: '#004521' }}>Abrir pedido</Link>
                         </div>
                       </div>
                     )}

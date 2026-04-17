@@ -17,12 +17,12 @@ function InfoField({ label, value }) {
 
 function Section({ icon: Icon, title, children }) {
   return (
-    <div className="bg-white rounded-2xl shadow-sm border border-slate-100 overflow-hidden">
-      <div className="flex items-center gap-3 px-5 sm:px-6 py-4 border-b border-slate-50 bg-slate-50/70">
-        <div className="w-7 h-7 rounded-lg bg-blue-100 flex items-center justify-center shrink-0">
-          <Icon className="w-4 h-4 text-blue-600" />
+    <div className="bg-white rounded-2xl border border-[#d6d6d6] overflow-hidden" style={{ boxShadow: '0 2px 4px 1px rgba(15,23,42,0.06)' }}>
+      <div className="flex items-center gap-3 px-5 sm:px-6 py-4 border-b border-[#efefef] bg-[#fafafa]">
+        <div className="w-7 h-7 rounded-lg flex items-center justify-center shrink-0" style={{ background: '#f2fde0' }}>
+          <Icon className="w-4 h-4" style={{ color: '#004521' }} />
         </div>
-        <span className="text-sm font-semibold text-slate-700">{title}</span>
+        <span className="text-sm font-semibold text-[#383838]">{title}</span>
       </div>
       <div className="p-5 sm:p-6">{children}</div>
     </div>
@@ -31,7 +31,10 @@ function Section({ icon: Icon, title, children }) {
 
 function RoleBadge({ tipoUsuario }) {
   return (
-    <span className={`inline-flex items-center gap-1 text-xs px-2 py-0.5 rounded-full font-medium ${tipoUsuario === 'ADMIN' ? 'bg-blue-50 text-blue-600' : 'bg-emerald-50 text-emerald-600'}`}>
+    <span
+      className="inline-flex items-center gap-1 text-xs px-2 py-0.5 rounded-full font-medium"
+      style={tipoUsuario === 'ADMIN' ? { background: '#f2fde0', color: '#004521' } : { background: '#f0fdf4', color: '#16a34a' }}
+    >
       <BadgeCheck className="w-3 h-3" /> {tipoUsuario}
     </span>
   )
@@ -86,7 +89,7 @@ export default function UsuarioDetailPage() {
   return (
     <div className="max-w-2xl mx-auto space-y-5">
       <div className="bg-white rounded-2xl shadow-sm border border-slate-100 overflow-hidden">
-        <div className={`h-20 sm:h-24 ${usuario.tipoUsuario === 'ADMIN' ? 'bg-gradient-to-r from-blue-600 to-indigo-700' : 'bg-gradient-to-r from-emerald-500 to-teal-600'}`} />
+        <div className={`h-20 sm:h-24 ${usuario.tipoUsuario === 'ADMIN' ? 'bg-gradient-to-r from-[#004521] to-[#012910]' : 'bg-gradient-to-r from-[#78de1f] to-[#4b8d12]'}`} />
         <div className="px-5 sm:px-6 -mt-10">
           {usuario.temFoto && fotoUrl && !imgError ? (
             <img
@@ -96,7 +99,7 @@ export default function UsuarioDetailPage() {
               className="w-20 h-20 rounded-2xl object-cover ring-4 ring-white shadow-lg"
             />
           ) : (
-            <div className={`w-20 h-20 rounded-2xl flex items-center justify-center text-white text-2xl font-bold ring-4 ring-white shadow-lg ${usuario.tipoUsuario === 'ADMIN' ? 'bg-gradient-to-br from-blue-600 to-indigo-700' : 'bg-gradient-to-br from-emerald-500 to-teal-600'}`}>
+            <div className={`w-20 h-20 rounded-2xl flex items-center justify-center text-white text-2xl font-bold ring-4 ring-white shadow-lg ${usuario.tipoUsuario === 'ADMIN' ? 'bg-gradient-to-br from-[#004521] to-[#012910]' : 'bg-gradient-to-br from-[#78de1f] to-[#4b8d12]'}`}>
               {usuario.nome.charAt(0).toUpperCase()}
             </div>
           )}
@@ -171,9 +174,9 @@ export default function UsuarioDetailPage() {
                     ))}
                   </tbody>
                   <tfoot>
-                    <tr className="bg-gradient-to-r from-blue-50 to-indigo-50 border-t-2 border-blue-200">
-                      <td colSpan={2} className="px-4 py-3 text-right text-sm font-bold text-blue-700">Total</td>
-                      <td className="px-4 py-3 text-right font-mono font-bold text-blue-700">{fmt(total)}</td>
+                    <tr className="border-t-2" style={{ background: '#f2fde0', borderColor: '#c9f485' }}>
+                      <td colSpan={2} className="px-4 py-3 text-right text-sm font-bold" style={{ color: '#004521' }}>Total</td>
+                      <td className="px-4 py-3 text-right font-mono font-bold" style={{ color: '#004521' }}>{fmt(total)}</td>
                     </tr>
                   </tfoot>
                 </table>

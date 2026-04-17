@@ -16,8 +16,8 @@ ReactDOM.createRoot(document.getElementById('root')).render(
           toastOptions={{
             duration: 3500,
             style: { fontFamily: '"Manrope", ui-sans-serif, system-ui, sans-serif', fontSize: '14px' },
-            success: { style: { background: '#f0fdf4', border: '1px solid #bbf7d0', color: '#166534' } },
-            error:   { style: { background: '#fef2f2', border: '1px solid #fecaca', color: '#991b1b' } },
+            success: { style: { background: '#f2fde0', border: '1px solid #a8e64e', color: '#004521' } },
+            error:   { style: { background: '#fef2f2', border: '1px solid #fca5a5', color: '#991b1b' } },
           }}
         />
       </AuthProvider>

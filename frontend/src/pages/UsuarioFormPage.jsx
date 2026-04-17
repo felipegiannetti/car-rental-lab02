@@ -33,7 +33,7 @@ function FotoUpload({ fotoUrl, onFoto }) {
         onDragOver={(e) => { e.preventDefault(); setDrag(true) }}
         onDragLeave={() => setDrag(false)}
         onDrop={(e) => { e.preventDefault(); setDrag(false); processFile(e.dataTransfer.files[0]) }}
-        className={`relative w-24 h-24 sm:w-28 sm:h-28 rounded-full cursor-pointer overflow-hidden ring-4 transition-all duration-200 ${drag ? 'ring-blue-400 scale-105' : 'ring-white shadow-lg hover:ring-blue-300'}`}
+        className={`relative w-24 h-24 sm:w-28 sm:h-28 rounded-full cursor-pointer overflow-hidden ring-4 transition-all duration-200 ${drag ? 'ring-[#78de1f] scale-105' : 'ring-white shadow-lg hover:ring-[#a8e64e]'}`}
       >
         {preview ? <img src={preview} alt="Foto" className="w-full h-full object-cover" /> : (
           <div className="w-full h-full bg-gradient-to-br from-slate-200 to-slate-300 flex items-center justify-center">
@@ -57,13 +57,13 @@ function FotoUpload({ fotoUrl, onFoto }) {
 
 function Section({ icon: Icon, title, children, badge }) {
   return (
-    <div className="bg-white rounded-2xl shadow-sm border border-slate-100 overflow-hidden">
-      <div className="flex items-center gap-3 px-5 sm:px-6 py-4 border-b border-slate-50 bg-slate-50/70">
-        <div className="w-7 h-7 rounded-lg bg-blue-100 flex items-center justify-center shrink-0">
-          <Icon className="w-4 h-4 text-blue-600" />
+    <div className="bg-white rounded-2xl border border-[#d6d6d6] overflow-hidden" style={{ boxShadow: '0 2px 4px 1px rgba(15,23,42,0.06)' }}>
+      <div className="flex items-center gap-3 px-5 sm:px-6 py-4 border-b border-[#efefef] bg-[#fafafa]">
+        <div className="w-7 h-7 rounded-lg flex items-center justify-center shrink-0" style={{ background: '#f2fde0' }}>
+          <Icon className="w-4 h-4" style={{ color: '#004521' }} />
         </div>
-        <span className="text-sm font-semibold text-slate-700">{title}</span>
-        {badge && <span className="ml-auto text-xs text-slate-400 bg-white border border-slate-200 px-2 py-0.5 rounded-full whitespace-nowrap">{badge}</span>}
+        <span className="text-sm font-semibold text-[#383838]">{title}</span>
+        {badge && <span className="ml-auto text-xs text-[#5e5e5e] bg-white border border-[#d6d6d6] px-2 py-0.5 rounded-full whitespace-nowrap">{badge}</span>}
       </div>
       <div className="p-5 sm:p-6">{children}</div>
     </div>
@@ -83,7 +83,7 @@ function Field({ label, error, children, required }) {
 }
 
 const inputCls = (err) =>
-  `w-full px-3 py-2.5 bg-white border rounded-xl text-sm text-slate-800 placeholder-slate-300 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-150 ${err ? 'border-red-300 bg-red-50/30' : 'border-slate-200'}`
+  `w-full px-3 py-2.5 bg-white border rounded-xl text-sm text-slate-800 placeholder-slate-300 focus:outline-none focus:ring-2 focus:ring-[#78de1f] focus:border-transparent transition-all duration-150 ${err ? 'border-red-300 bg-red-50/30' : 'border-slate-200'}`
 
 function buildInitialValues(usuario) {
   const prof = usuario?.profissao ?? ''
@@ -266,7 +266,7 @@ export default function UsuarioFormPage({ publicMode = false }) {
 
             {!publicMode && isEdit && (
               <div className="sm:col-span-2 rounded-xl border border-slate-200 bg-slate-50 px-4 py-3 flex items-center gap-3">
-                <div className="w-9 h-9 rounded-xl bg-blue-100 flex items-center justify-center"><Shield className="w-4 h-4 text-blue-600" /></div>
+                <div className="w-9 h-9 rounded-xl flex items-center justify-center" style={{ background: '#f2fde0' }}><Shield className="w-4 h-4" style={{ color: '#004521' }} /></div>
                 <div>
                   <p className="text-xs uppercase tracking-widest text-slate-400 font-semibold">Tipo de conta</p>
                   <p className="text-sm font-semibold text-slate-700">{loadedUser?.tipoUsuario}</p>
@@ -308,7 +308,7 @@ export default function UsuarioFormPage({ publicMode = false }) {
                           handleCpfChange(formatted)
                         }}
                       />
-                      {cpfStatus === 'checking' && <div className="absolute right-2.5 top-1/2 -translate-y-1/2 w-3.5 h-3.5 border-2 border-blue-400 border-t-transparent rounded-full animate-spin" />}
+                      {cpfStatus === 'checking' && <div className="absolute right-2.5 top-1/2 -translate-y-1/2 w-3.5 h-3.5 border-2 border-[#78de1f] border-t-transparent rounded-full animate-spin" />}
                       {cpfStatus && cpfStatus !== 'checking' && <AlertCircle className="absolute right-2.5 top-1/2 -translate-y-1/2 w-4 h-4 text-amber-500" />}
                     </div>
                     {cpfStatus && cpfStatus !== 'checking' && (
@@ -358,7 +358,7 @@ export default function UsuarioFormPage({ publicMode = false }) {
 
                 <div className="space-y-2">
                   <label className="flex items-center gap-2 cursor-pointer select-none w-fit">
-                    <input type="checkbox" {...register('semProfissao')} className="w-4 h-4 rounded accent-blue-600" />
+                    <input type="checkbox" {...register('semProfissao')} className="w-4 h-4 rounded" style={{ accentColor: '#78de1f' }} />
                     <span className="text-sm text-slate-600">Nao possui profissao</span>
                   </label>
 
@@ -387,7 +387,7 @@ export default function UsuarioFormPage({ publicMode = false }) {
                 </div>
               </>
             ) : (
-              <div className="rounded-xl border border-blue-100 bg-blue-50 px-4 py-3 text-sm text-blue-700">
+              <div className="rounded-xl px-4 py-3 text-sm" style={{ background: '#f2fde0', border: '1px solid #c9f485', color: '#004521' }}>
                 Administradores acessam a area de gerenciamento do sistema e nao precisam dos dados cadastrais de cliente.
               </div>
             )}
@@ -419,7 +419,7 @@ export default function UsuarioFormPage({ publicMode = false }) {
           </Link>
           <button type="submit" disabled={isSubmitting} className="btn-primary disabled:opacity-50 px-6 py-2.5">
             {isSubmitting
-              ? <><span className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin" /> Salvando...</>
+              ? <><span className="w-4 h-4 border-2 border-[#004521] border-t-transparent rounded-full animate-spin" /> Salvando...</>
               : <><Save className="w-4 h-4" /> {publicMode ? 'Criar conta' : (isEdit ? 'Atualizar' : 'Cadastrar')}</>}
           </button>
         </div>
