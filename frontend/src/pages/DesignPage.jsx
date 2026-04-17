@@ -438,19 +438,25 @@ export default function DesignPage() {
               <div className="rounded-2xl border p-4" style={{ borderColor: tokens.limeBorder, background: tokens.limeLight }}>
                 <p className="text-xs font-bold uppercase tracking-[0.16em]" style={{ color: tokens.forest }}>Direcao visual</p>
                 <p className="mt-2 text-sm leading-relaxed" style={{ color: tokens.forestMid }}>
-                  Inspiracao no print do Meoo: fundo claro, formas orgânicas lime, carro em destaque central e leitura por cards.
+                  Inspiracao no print do Meoo: fundo claro, formas organicas lime, Porsche centralizada no hero e leitura por cards com mais respiro.
                 </p>
               </div>
               <div className="rounded-2xl border p-4" style={{ borderColor: tokens.border, background: '#fafafa' }}>
                 <p className="text-xs font-bold uppercase tracking-[0.16em]" style={{ color: tokens.textSub }}>Hierarquia da informacao</p>
                 <p className="mt-2 text-sm leading-relaxed" style={{ color: tokens.textSub }}>
-                  1. Foto e status. 2. Marca/modelo. 3. Chips de modalidade. 4. Ano, km, placa e anunciante. 5. Acoes.
+                  1. Hero com imagem. 2. Marca/modelo. 3. Status e modalidades. 4. Ano, km, placa, anunciante e matricula. 5. Acoes.
                 </p>
               </div>
               <div className="rounded-2xl border p-4" style={{ borderColor: tokens.border, background: '#ffffff' }}>
                 <p className="text-xs font-bold uppercase tracking-[0.16em]" style={{ color: tokens.textSub }}>Componentes usados</p>
                 <p className="mt-2 text-sm leading-relaxed" style={{ color: tokens.textSub }}>
-                  Hero editorial + carrossel autoplay de 3s com slide horizontal + stat cards + painel de filtros + vehicle cards com media 16:10 e acoes persistentes.
+                  Hero editorial com imagens Porsche, autoplay infinito de 3s, slide horizontal sem setas, stat cards, painel de filtros e vehicle cards com media 16:10.
+                </p>
+              </div>
+              <div className="rounded-2xl border p-4" style={{ borderColor: tokens.border, background: '#ffffff' }}>
+                <p className="text-xs font-bold uppercase tracking-[0.16em]" style={{ color: tokens.textSub }}>Decisoes recentes</p>
+                <p className="mt-2 text-sm leading-relaxed" style={{ color: tokens.textSub }}>
+                  O carrossel usa apenas imagens de Porsche disponiveis no sistema, faz loop continuo ao terminar e removeu setas, sombra projetada e selo de destaque para manter a vitrine mais limpa.
                 </p>
               </div>
             </div>
@@ -538,7 +544,7 @@ export default function DesignPage() {
             <Token name="spin"       value="spin 1s linear — loading spinners" />
             <Token name="pulse"      value="pulse 2s ease — skeleton state" />
             <Token name="duration"   value="150ms — transições hover/focus" />
-            <Token name="hero-carousel" value="autoplay 3000ms + slide horizontal 700ms ease-out" />
+            <Token name="hero-carousel" value="Porsche only + autoplay 3000ms + loop infinito + slide horizontal 700ms ease-out" />
           </Card>
           <Card className="p-5 sm:col-span-2">
             <p className="section-title">Referência de inspiração</p>
