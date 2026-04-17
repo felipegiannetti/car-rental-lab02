@@ -1,8 +1,6 @@
 import { useEffect, useMemo, useState } from 'react'
 import { Link } from 'react-router-dom'
 import {
-  ChevronLeft,
-  ChevronRight,
   CalendarRange,
   Car,
   CheckCircle2,
@@ -140,6 +138,43 @@ function InfoChip({ icon: Icon, label, value }) {
   )
 }
 
+function OfferBadge({ automovel }) {
+  let title = 'Oferta ativa'
+  let subtitle = 'Pronto para pedido'
+  let icon = Car
+
+  if (automovel.statusAnuncio === 'EM_NEGOCIACAO') {
+    title = 'Em negociacao'
+    subtitle = 'Anuncio em conversa'
+    icon = HandCoins
+  } else if (automovel.aceitaAluguel && automovel.aceitaCompra) {
+    title = 'Compra e aluguel'
+    subtitle = 'Mais flexibilidade'
+    icon = ShoppingBag
+  } else if (automovel.aceitaAluguel) {
+    title = 'So aluguel'
+    subtitle = 'Uso por periodo'
+    icon = KeyRound
+  } else if (automovel.aceitaCompra) {
+    title = 'So compra'
+    subtitle = 'Negociacao direta'
+    icon = ShoppingBag
+  }
+
+  const Icon = icon
+
+  return (
+    <div className="rounded-2xl bg-[#f2fde0] px-3 py-2 text-right">
+      <p className="flex items-center justify-end gap-1 text-[10px] font-bold uppercase tracking-[0.16em] text-[#01602a]">
+        <Icon className="h-3.5 w-3.5" />
+        destaque
+      </p>
+      <p className="mt-1 text-sm font-semibold text-[#004521]">{title}</p>
+      <p className="text-[11px] text-[#4d6f46]">{subtitle}</p>
+    </div>
+  )
+}
+
 function VehicleCard({ automovel, canEdit, canDelete, onDelete }) {
   return (
     <article
@@ -167,10 +202,7 @@ function VehicleCard({ automovel, canEdit, canDelete, onDelete }) {
               Visualizacao rapida do anuncio, com destaque para disponibilidade e forma de negociacao.
             </p>
           </div>
-          <div className="rounded-2xl bg-[#f2fde0] px-3 py-2 text-right">
-            <p className="text-[10px] font-bold uppercase tracking-[0.16em] text-[#01602a]">ID</p>
-            <p className="text-sm font-semibold text-[#004521]">#{automovel.id}</p>
-          </div>
+          <OfferBadge automovel={automovel} />
         </div>
 
         <div className="grid grid-cols-2 gap-3">
@@ -314,16 +346,6 @@ export default function AutomovelListPage() {
     }
   }, [heroIndex, heroSlides.length])
 
-  function showPrevHero() {
-    if (heroSlides.length === 0) return
-    setHeroIndex((current) => (current - 1 + heroSlides.length) % heroSlides.length)
-  }
-
-  function showNextHero() {
-    if (heroSlides.length === 0) return
-    setHeroIndex((current) => (current + 1) % heroSlides.length)
-  }
-
   return (
     <div className="mx-auto max-w-7xl space-y-6">
       <section
@@ -371,22 +393,6 @@ export default function AutomovelListPage() {
 
           <div className="relative mx-auto flex w-full max-w-[560px] items-center justify-center">
             <div className="relative w-full">
-              <button
-                type="button"
-                onClick={showPrevHero}
-                className="absolute left-4 top-1/2 z-10 -translate-y-1/2 rounded-full bg-white/78 p-2 text-[#8f8f8f] shadow-sm transition hover:bg-white hover:text-[#004521]"
-                aria-label="Slide anterior"
-              >
-                <ChevronLeft className="h-5 w-5" />
-              </button>
-              <button
-                type="button"
-                onClick={showNextHero}
-                className="absolute right-4 top-1/2 z-10 -translate-y-1/2 rounded-full bg-white/78 p-2 text-[#8f8f8f] shadow-sm transition hover:bg-white hover:text-[#004521]"
-                aria-label="Próximo slide"
-              >
-                <ChevronRight className="h-5 w-5" />
-              </button>
               <div className="mx-auto w-full max-w-[430px] overflow-hidden">
                 <div
                   className="flex transition-transform duration-700 ease-out"
