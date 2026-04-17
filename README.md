@@ -1,249 +1,211 @@
-# 🚗 Car Rental Lab 02 - Sistema de Aluguel e Compra de Automóveis
+# Car Rental Lab 02
 
-> Uma aplicação web full stack desenvolvida como projeto da disciplina de Laboratório de Desenvolvimento de Software, permitindo cadastro de usuários, publicação de anúncios de carros, criação e gestão de pedidos de aluguel/compra, notificações e administração do sistema.
+Sistema web full stack para anúncios de automóveis com fluxo de aluguel e compra, cadastro de clientes, autenticação por perfil, aprovação de pedidos e administração do sistema.
 
-Este projeto demonstra a construção de uma aplicação web moderna com **frontend em React + Vite**, **backend em Flask**, **persistência com SQLAlchemy** e **armazenamento de imagens em banco de dados**, incluindo autenticação por perfil, regras de negócio para pedidos e interface responsiva.
+## Visão geral
 
----
+O projeto foi desenvolvido como atividade da disciplina de Laboratório de Desenvolvimento de Software e hoje está organizado como uma aplicação web em duas partes:
 
-## 🚧 Status do Projeto
+- `frontend/`: SPA em React + Vite
+- `backend/`: API REST em Flask + SQLAlchemy
 
-![Build Status](https://img.shields.io/badge/build-passing-brightgreen)
-![Frontend](https://img.shields.io/badge/Frontend-React%2018.2.0-61DAFB?logo=react)
-![Vite](https://img.shields.io/badge/Vite-5.1.5-646CFF?logo=vite)
-![Backend](https://img.shields.io/badge/Backend-Flask%203.x-000000?logo=flask)
-![Database](https://img.shields.io/badge/Database-SQLite-003B57?logo=sqlite)
-![ORM](https://img.shields.io/badge/ORM-SQLAlchemy-red)
-![Node](https://img.shields.io/badge/Node.js-LTS-339933?logo=node.js)
-![Python](https://img.shields.io/badge/Python-3.9%2B-3776AB?logo=python)
+O sistema permite:
 
----
+- navegar pelos automóveis sem login
+- cadastrar clientes
+- autenticar usuários `ADMIN` e `CLIENTE`
+- publicar, editar e excluir anúncios de carros
+- enviar pedidos de aluguel e compra
+- aprovar, recusar e cancelar pedidos
+- acompanhar notificações ligadas aos pedidos
+- administrar usuários, anúncios e pedidos
 
-## 📚 Índice
+## Stack
 
-- [🔗 Links Úteis](#-links-úteis)
-- [📝 Sobre o Projeto](#-sobre-o-projeto)
-- [✨ Funcionalidades Principais](#-funcionalidades-principais)
-- [🛠 Tecnologias Utilizadas](#-tecnologias-utilizadas)
-- [🏗 Arquitetura](#-arquitetura)
-- [🔧 Instalação e Execução](#-instalação-e-execução)
-- [📂 Estrutura de Pastas](#-estrutura-de-pastas)
-- [🎥 Demonstração](#-demonstração)
-- [🧩 Diagramas e Documentação](#-diagramas-e-documentação)
-- [🔗 Documentações Utilizadas](#-documentações-utilizadas)
-- [👥 Autores](#-autores)
-- [🤝 Contribuição](#-contribuição)
-- [🙏 Agradecimentos](#-agradecimentos)
-- [📄 Licença](#-licença)
+### Frontend
 
----
+- React 18
+- Vite 5
+- React Router DOM 6
+- Axios
+- React Hook Form
+- React Hot Toast
+- Tailwind CSS 3
+- Lucide React
 
-## 🔗 Links Úteis
+### Backend
 
-🐙 **Repositório:** [github.com/felipegiannetti/car-rental-lab02](https://github.com/felipegiannetti/car-rental-lab02)
-> Código-fonte completo do projeto
+- Flask 3
+- Flask-CORS
+- Flask-SQLAlchemy
+- SQLAlchemy 2
+- Werkzeug
+- python-dotenv
+- PyMySQL
 
-📄 **Histórias de Usuário:** [docs/historiadeusuarios.pdf](docs/historiadeusuarios.pdf)
-> Documento acadêmico com o levantamento funcional do sistema
+### Banco de dados
 
-🧩 **Diagramas:** [diagramas/](diagramas)
-> Pasta com diagramas de casos de uso, classes, componentes, implantação e pacotes
+- SQLite por padrão
+- suporte a `DATABASE_URL` para trocar o banco
+- imagens salvas no banco como BLOB
 
-🔐 **Conta Administrativa Padrão:**
-> `login: admin`  
-> `senha: admin`
+## Funcionalidades
 
----
+### Público
 
-## 📝 Sobre o Projeto
+- listagem pública de automóveis
+- hero visual com carrossel automático de imagens
+- filtros por marca, ano, quilometragem e modalidade
+- visualização detalhada do anúncio
 
-### 🎯 Propósito
+### Cliente
 
-Este projeto foi desenvolvido como trabalho prático da disciplina de **Laboratório de Desenvolvimento de Software** do curso de **Engenharia de Software**, com o objetivo de construir um sistema web de anúncios de automóveis que suporte:
+- cadastro com dados pessoais, profissão, rendas, email e telefone
+- login e persistência de sessão no frontend
+- criação e manutenção de anúncios próprios
+- página de “Meus anúncios”
+- criação de pedidos de aluguel ou compra
+- página de “Meus pedidos”
+- página de “Pedidos recebidos”
+- notificações paginadas com respostas dos pedidos
 
-- cadastro e autenticação de usuários
-- publicação de carros com imagem salva em banco
-- pedidos de **aluguel** e **compra**
-- aprovação e recusa de pedidos pelo dono do anúncio
-- notificações de resposta ao solicitante
-- área administrativa para gerenciamento de usuários e operações do sistema
+### Admin
 
-### 🎓 Contexto Acadêmico
+- criação, edição, visualização e exclusão de usuários
+- listagem global de pedidos
+- exclusão administrativa de pedidos
+- gerenciamento global dos recursos do sistema
 
-- **Disciplina:** Laboratório de Desenvolvimento de Software
-- **Instituição:** PUC Minas - Engenharia de Software
-- **Período:** 4º Período
-- **Semestre:** 2026/1
-
----
-
-## ✨ Funcionalidades Principais
-
-- 🏠 **Home Pública:** visitantes acessam a listagem de carros sem necessidade de login
-- 📝 **Cadastro de Clientes:** registro de usuário com dados pessoais, profissão e rendas
-- 🔐 **Autenticação por Perfil:** diferenciação entre **ADMIN** e **CLIENTE**
-- 🚘 **Anúncios de Carros:** clientes autenticados podem publicar, editar e excluir seus próprios anúncios
-- 🖼 **Imagens em Banco:** fotos dos carros são armazenadas em bytes no banco de dados, sem salvar localmente
-- 🧭 **Listagem em Cards:** visualização dos carros em cards com foco na foto e filtros avançados
-- 🔎 **Filtros de Busca:** filtragem por marca, quilometragem máxima, ano e modalidade
-- 🛒 **Pedidos de Compra e Aluguel:** o solicitante escolhe o tipo de pedido ao interagir com o anúncio
-- 📅 **Controle de Conflito de Datas:** aluguel só é aceito em períodos livres
-- 🤝 **Fluxo de Aprovação:** o dono do anúncio aprova ou recusa pedidos recebidos
-- 📬 **Notificações Paginadas:** aprovações e recusas visíveis ao solicitante, com 5 notificações por página
-- 📞 **Liberação de Contato em Compra:** ao aprovar compra, o sistema envia nome, email e telefone do anunciante ao comprador
-- 📂 **Meus Anúncios:** página dedicada para visualizar e gerenciar apenas os carros publicados pelo usuário
-- 🧾 **Pedidos Recebidos:** página específica para analisar solicitações ligadas aos próprios anúncios
-- 👥 **Administração de Usuários:** admins podem criar, editar, visualizar e deletar usuários
-- 🛠 **Administração Global:** admin pode excluir pedidos e anúncios do sistema
-
----
-
-## 🛠 Tecnologias Utilizadas
-
-### 💻 Front-end
-
-| Tecnologia | Versão | Uso |
-|---|---|---|
-| **React** | 18.2.0 | Construção da interface SPA |
-| **Vite** | 5.1.5 | Build tool, dev server e HMR |
-| **React Router DOM** | 6.22.3 | Roteamento do frontend |
-| **Axios** | 1.6.7 | Comunicação HTTP com a API |
-| **React Hook Form** | 7.51.0 | Gerenciamento de formulários |
-| **React Hot Toast** | 2.4.1 | Feedback visual de ações |
-| **Lucide React** | 0.344.0 | Ícones da interface |
-| **Tailwind CSS** | 3.4.1 | Estilização responsiva |
-
-### ⚙️ Back-end
-
-| Tecnologia | Versão | Uso |
-|---|---|---|
-| **Flask** | 3.x | Framework web da API |
-| **Flask-Cors** | 4.x | Liberação de CORS para `/api/*` |
-| **Flask-SQLAlchemy** | 3.1.1+ | Integração ORM com Flask |
-| **SQLAlchemy** | 2.x | Modelagem e acesso ao banco |
-| **Werkzeug** | 3.x | Hash de senha e utilidades web |
-| **python-dotenv** | 1.0.1+ | Variáveis de ambiente |
-| **PyMySQL** | 1.1.1+ | Driver opcional para MySQL |
-
-### 🗄 Banco de Dados
-
-| Tecnologia | Uso |
-|---|---|
-| **SQLite** | Banco padrão do projeto em desenvolvimento |
-| **BLOB** | Armazenamento das imagens dos carros e clientes |
-
-### ☁️ Infraestrutura & Ferramentas
-
-| Ferramenta | Uso |
-|---|---|
-| **Git** | Versionamento |
-| **GitHub** | Hospedagem do repositório |
-| **Node.js** | Execução do frontend |
-| **Python** | Execução do backend |
-
----
-
-## 🏗 Arquitetura
-
-### 📐 Visão Geral
-
-O projeto segue uma arquitetura web em camadas:
+## Arquitetura
 
 ```text
-┌──────────────────────────────────────────────┐
-│              Navegador do Usuário            │
-└──────────────────────────────────────────────┘
-                     │
-                     ▼
-┌──────────────────────────────────────────────┐
-│         Frontend React + Vite (SPA)          │
-│  - React Router                              │
-│  - AuthContext                               │
-│  - Axios                                     │
-└──────────────────────────────────────────────┘
-                     │ HTTP / JSON
-                     ▼
-┌──────────────────────────────────────────────┐
-│             Backend Flask (API)              │
-│  - Auth Blueprint                            │
-│  - Cliente Blueprint                         │
-│  - Automovel Blueprint                       │
-│  - Pedido Blueprint                          │
-│  - Usuario Blueprint                         │
-│  - Camada de Services                        │
-│  - Security baseada em headers               │
-└──────────────────────────────────────────────┘
-                     │ SQLAlchemy ORM
-                     ▼
-┌──────────────────────────────────────────────┐
-│              SQLite / Banco Local            │
-│  - admins                                    │
-│  - clientes                                  │
-│  - rendas                                    │
-│  - automoveis                                │
-│  - pedidos                                   │
-└──────────────────────────────────────────────┘
+Navegador
+  -> Frontend React/Vite
+  -> /api
+  -> Backend Flask
+  -> SQLAlchemy
+  -> SQLite
 ```
 
-### 🧱 Comunicação Entre as Camadas
+### Organização do backend
 
-- O **frontend** chama a API usando `Axios` com `baseURL: /api`
-- Em desenvolvimento, o **Vite** faz proxy de `/api` para `http://localhost:8080`
-- O **backend Flask** recebe as requisições REST, valida permissões e delega para a camada de serviços
-- A camada de **services** encapsula as regras de negócio
-- O **SQLAlchemy** persiste e consulta os dados no banco
-- As imagens dos carros são enviadas em base64 pelo frontend, convertidas para bytes no backend e salvas no banco como **BLOB**
+- `auth/`: login e bootstrap do admin padrão
+- `cliente/`: cadastro e manutenção de clientes
+- `automovel/`: anúncios, fotos e regras dos carros
+- `pedido/`: criação e atualização de pedidos
+- `usuario/`: gestão administrativa de usuários
+- `shared/`: modelos compartilhados
 
-### 🔐 Estratégia de Autenticação
+### Organização do frontend
 
-- O sistema atual **não usa JWT**
-- Após login, o frontend salva o usuário autenticado no `localStorage`
-- A cada request, o frontend envia:
-  - `X-User-Role`
-  - `X-User-Id`
-- O backend usa esses headers para autorização em [backend/security.py](backend/security.py)
+- `src/api/`: clientes HTTP
+- `src/components/`: layout, sidebar, modal etc.
+- `src/context/`: autenticação no frontend
+- `src/pages/`: páginas do sistema
+- `src/index.css`: tokens e classes utilitárias do projeto
 
-### 🧩 Módulos Principais do Backend
+## Autenticação
 
-| Módulo | Responsabilidade |
-|---|---|
-| **Auth** | login e bootstrap do admin padrão |
-| **Cliente** | cadastro e manutenção de clientes |
-| **Automóvel** | publicação, edição, exclusão e exibição de anúncios |
-| **Pedido** | criação, aprovação, recusa, cancelamento e exclusão de pedidos |
-| **Usuário** | gestão administrativa de admins e clientes |
+O projeto não usa JWT.
 
----
+O fluxo atual é:
 
-## 🔧 Instalação e Execução
+1. o login retorna os dados do usuário
+2. o frontend salva o usuário autenticado no `localStorage`
+3. a cada requisição autenticada, o frontend envia:
+   - `X-User-Role`
+   - `X-User-Id`
+4. o backend valida autorização com base nesses headers em [backend/security.py](backend/security.py)
 
-### 📋 Pré-requisitos
+## Banco de dados
 
-Antes de começar, tenha instalado:
+Por padrão, o backend usa:
 
-- **Python 3.9+**
-- **Node.js 18+**
-- **npm**
-- **Git**
-
-Verifique:
-
-```bash
-python --version
-node --version
-npm --version
+```env
+DATABASE_URL=sqlite:///carrental.db
 ```
 
----
+Na prática, o banco SQLite local é criado em `instance/` durante a execução da aplicação.
 
-### 1. Clone o repositório
+Ao subir o backend, o sistema também:
+
+- cria as tabelas automaticamente
+- aplica ajustes de compatibilidade em colunas antigas
+- garante a existência do administrador padrão
+
+## Conta administrativa padrão
+
+```text
+login: admin
+senha: admin
+```
+
+## Rotas principais
+
+### Frontend
+
+- `/login`
+- `/register`
+- `/automoveis`
+- `/automoveis/:id`
+- `/automoveis/novo`
+- `/automoveis/:id/editar`
+- `/meus-anuncios`
+- `/pedidos`
+- `/pedidos/novo`
+- `/pedidos/:id`
+- `/pedidos-recebidos`
+- `/notificacoes`
+- `/usuarios`
+- `/usuarios/novo`
+- `/usuarios/:tipo/:id`
+- `/usuarios/:tipo/:id/editar`
+- `/design`
+
+### API
+
+- `POST /api/auth/login`
+- `GET /api/automoveis/`
+- `GET /api/automoveis/<id>`
+- `POST /api/automoveis/`
+- `PUT /api/automoveis/<id>`
+- `DELETE /api/automoveis/<id>`
+- `GET /api/automoveis/<id>/foto`
+- `GET /api/clientes/`
+- `GET /api/clientes/<id>`
+- `POST /api/clientes/`
+- `PUT /api/clientes/<id>`
+- `DELETE /api/clientes/<id>`
+- `GET /api/clientes/buscar-cpf/<cpf>`
+- `GET /api/clientes/<id>/foto`
+- `GET /api/pedidos/`
+- `GET /api/pedidos/<id>`
+- `POST /api/pedidos/`
+- `PATCH /api/pedidos/<id>/status`
+- `POST /api/pedidos/<id>/cancelar`
+- `DELETE /api/pedidos/<id>`
+- `GET /api/usuarios/`
+- `GET /api/usuarios/<tipo>/<id>`
+- `POST /api/usuarios/`
+- `PUT /api/usuarios/<tipo>/<id>`
+- `DELETE /api/usuarios/<tipo>/<id>`
+
+## Instalação
+
+### Pré-requisitos
+
+- Python 3.9+
+- Node.js 18+
+- npm
+
+### 1. Clonar o repositório
 
 ```bash
 git clone https://github.com/felipegiannetti/car-rental-lab02.git
 cd car-rental-lab02
 ```
 
-### 2. Instale as dependências do backend
+### 2. Instalar dependências do backend
 
 ```bash
 python -m venv .venv
@@ -251,7 +213,7 @@ python -m venv .venv
 pip install -r backend/requirements.txt
 ```
 
-### 3. Instale as dependências do frontend
+### 3. Instalar dependências do frontend
 
 ```bash
 cd frontend
@@ -259,19 +221,25 @@ npm install
 cd ..
 ```
 
-### 4. Execute o backend
+## Execução
+
+### Opção recomendada para desenvolvimento com Vite
+
+Essa opção já combina com o proxy atual do frontend em [frontend/vite.config.js](frontend/vite.config.js).
+
+#### Backend
 
 ```bash
-python run.py
+python -m flask --app backend.app:create_app --debug run
 ```
 
-O backend ficará disponível em:
+Backend:
 
 ```text
-http://localhost:8080
+http://localhost:5000
 ```
 
-### 5. Execute o frontend
+#### Frontend
 
 Em outro terminal:
 
@@ -280,203 +248,151 @@ cd frontend
 npm run dev
 ```
 
-O frontend ficará disponível em:
+Frontend:
 
 ```text
 http://localhost:5173
 ```
 
----
+### Opção alternativa com `run.py`
 
-### 🗄 Configuração do Banco
+O arquivo [run.py](run.py) inicia o backend na porta `8080`:
 
-Por padrão, o projeto usa:
-
-```env
-DATABASE_URL=sqlite:///carrental.db
+```bash
+python run.py
 ```
 
-Essa configuração está em [backend/config.py](backend/config.py).  
-Se a variável `DATABASE_URL` não for definida, o SQLite local é utilizado automaticamente.
+Se usar essa opção junto com o frontend em modo dev, ajuste o `target` do proxy em [frontend/vite.config.js](frontend/vite.config.js) para `http://localhost:8080`.
 
----
-
-### 🔐 Credenciais Iniciais
-
-Ao iniciar o backend, o sistema garante a criação do administrador padrão:
-
-```text
-login: admin
-senha: admin
-```
-
----
-
-### 🏗 Build do Frontend
+## Build do frontend
 
 ```bash
 cd frontend
 npm run build
 ```
 
-Os arquivos otimizados serão gerados em:
+Saída:
 
 ```text
 frontend/dist
 ```
 
-### 🛠 Scripts Disponíveis
+## Scripts úteis
 
-| Script | Comando | Descrição |
-|---|---|---|
-| Frontend Dev | `npm run dev` | Inicia o frontend com HMR |
-| Frontend Build | `npm run build` | Gera build otimizado |
-| Frontend Preview | `npm run preview` | Visualiza o build local |
-| Backend Run | `python run.py` | Inicia a API Flask |
+### Frontend
 
----
+- `npm run dev`
+- `npm run build`
+- `npm run preview`
 
-## 📂 Estrutura de Pastas
+### Backend
+
+- `python -m flask --app backend.app:create_app --debug run`
+- `python run.py`
+- `python -m flask --app backend.app:create_app routes`
+
+## Estrutura de pastas
 
 ```text
 car-rental-lab02/
-├── backend/                   # API Flask
-│   ├── admin/                 # Modelo de administrador
-│   ├── auth/                  # Login e autenticação
-│   ├── automovel/             # Regras e endpoints de anúncios
-│   ├── cliente/               # Cadastro e manutenção de clientes
-│   ├── pedido/                # Regras e endpoints de pedidos
-│   ├── shared/                # Modelos compartilhados
-│   ├── usuario/               # Gestão administrativa de usuários
-│   ├── app.py                 # Criação da aplicação Flask
-│   ├── config.py              # Configurações
-│   ├── extensions.py          # Instância SQLAlchemy
-│   ├── requirements.txt       # Dependências Python
-│   └── security.py            # Autorização por headers
-│
-├── frontend/                  # Aplicação React + Vite
+├── backend/
+│   ├── admin/
+│   ├── auth/
+│   ├── automovel/
+│   ├── cliente/
+│   ├── pedido/
+│   ├── shared/
+│   ├── usuario/
+│   ├── app.py
+│   ├── config.py
+│   ├── extensions.py
+│   ├── requirements.txt
+│   └── security.py
+├── frontend/
 │   ├── src/
-│   │   ├── api/               # Clientes HTTP
-│   │   ├── components/        # Layout, Sidebar, modais etc.
-│   │   ├── context/           # AuthContext
-│   │   ├── pages/             # Telas do sistema
-│   │   ├── App.jsx            # Rotas da SPA
-│   │   └── main.jsx           # Entrada do React
+│   │   ├── api/
+│   │   ├── components/
+│   │   ├── constants/
+│   │   ├── context/
+│   │   ├── pages/
+│   │   ├── utils/
+│   │   ├── App.jsx
+│   │   ├── index.css
+│   │   └── main.jsx
 │   ├── package.json
-│   ├── vite.config.js
-│   └── tailwind.config.js
-│
-├── diagramas/                 # Diagramas do projeto
-├── docs/                      # Documentação complementar
-├── instance/                  # Banco local SQLite gerado em runtime
-├── run.py                     # Ponto de entrada do backend
-├── pom.xml                    # Arquivo legado/acadêmico no repositório
-└── README.md                  # Documentação principal
+│   ├── postcss.config.js
+│   ├── tailwind.config.js
+│   └── vite.config.js
+├── diagramas/
+├── docs/
+├── instance/
+├── run.py
+├── pom.xml
+└── README.md
 ```
 
----
+## Interface e design
 
-## 🎥 Demonstração
+O frontend atual segue uma linguagem visual inspirada na comunicação da Localiza Meoo:
 
-### 🌐 Principais Fluxos do Sistema
+- verde lima como cor primária
+- verde floresta para áreas de destaque
+- cards grandes para anúncios
+- hero editorial na listagem de automóveis
+- carrossel automático de imagens no topo da vitrine
 
-| Fluxo | Descrição |
-|---|---|
-| **Home pública** | Lista carros em cards sem exigir login |
-| **Cadastro/Login** | Permite criação de cliente e autenticação de admin/cliente |
-| **Publicação de anúncio** | Cliente publica carro com imagem, km e modalidades |
-| **Meus anúncios** | Usuário visualiza e gerencia apenas seus próprios anúncios |
-| **Pedidos recebidos** | Dono do carro aprova ou recusa pedidos dos seus anúncios |
-| **Meus pedidos** | Solicitante acompanha pedidos feitos |
-| **Notificações** | Exibe aprovações e recusas com paginação de 5 itens |
-| **Administração** | Admin gerencia usuários, anúncios e pedidos globalmente |
+O projeto mantém uma página de referência visual em:
 
----
+```text
+/design
+```
 
-## 🧩 Diagramas e Documentação
+Essa página documenta:
 
-### 📌 Diagramas disponíveis no repositório
+- paleta de cores
+- tipografia
+- componentes
+- catálogo visual da listagem de automóveis
+- tokens e padrões da interface
 
-- ![Casos de Uso](diagramas/casosdeuso.png)
-- ![Diagrama de Componentes](diagramas/diagrama-componentes.png)
-- ![Diagrama de Classes](diagramas/diagramadeclasses.png)
-- ![Diagrama de Implantação](diagramas/diagramadeimplantacao.png)
-- ![Diagrama de Pacotes](diagramas/diagramadepacotes.png)
+## Regras de negócio importantes
 
-### 📄 Documento adicional
+- apenas clientes podem criar pedidos
+- administradores não criam pedidos
+- o dono do anúncio aprova ou recusa pedidos recebidos
+- pedidos de aluguel dependem de disponibilidade
+- anúncios podem aceitar aluguel, compra ou ambos
+- o frontend envia imagens em base64
+- o backend converte e persiste imagens como bytes no banco
 
-- [História de Usuários](docs/historiadeusuarios.pdf)
+## Documentação complementar
 
----
+- [docs/historiadeusuarios.pdf](docs/historiadeusuarios.pdf)
+- [diagramas/](diagramas)
 
-## 🔗 Documentações Utilizadas
+## Diagramas disponíveis
 
-- 📖 [React Documentation](https://react.dev/)
-- 📖 [Vite Documentation](https://vitejs.dev/)
-- 📖 [Flask Documentation](https://flask.palletsprojects.com/)
-- 📖 [SQLAlchemy Documentation](https://docs.sqlalchemy.org/)
-- 📖 [Flask-SQLAlchemy Documentation](https://flask-sqlalchemy.palletsprojects.com/)
-- 📖 [Tailwind CSS Documentation](https://tailwindcss.com/docs)
-- 📖 [Axios Documentation](https://axios-http.com/)
-- 📖 [React Router Documentation](https://reactrouter.com/)
-- 📖 [React Hook Form Documentation](https://react-hook-form.com/)
-- 📖 [Lucide Icons](https://lucide.dev/)
-- 📖 [SQLite Documentation](https://www.sqlite.org/docs.html)
+- `diagramas/casosdeuso.png`
+- `diagramas/diagrama-componentes.png`
+- `diagramas/diagramadeclasses.png`
+- `diagramas/diagramadeimplantacao.png`
+- `diagramas/diagramadepacotes.png`
 
----
+## Links úteis
 
-## 👥 Autores
+- Repositório: [github.com/felipegiannetti/car-rental-lab02](https://github.com/felipegiannetti/car-rental-lab02)
+- React: [https://react.dev/](https://react.dev/)
+- Vite: [https://vitejs.dev/](https://vitejs.dev/)
+- Flask: [https://flask.palletsprojects.com/](https://flask.palletsprojects.com/)
+- SQLAlchemy: [https://docs.sqlalchemy.org/](https://docs.sqlalchemy.org/)
+- Tailwind CSS: [https://tailwindcss.com/docs](https://tailwindcss.com/docs)
 
-| Nome | GitHub | Email |
-|---|---|---|
-| **Felipe Giannetti Fontenelle** | [@felipegiannetti](https://github.com/felipegiannetti) | felipegiannettifontenelle@gmail.com |
+## Autor
 
----
+- Felipe Giannetti Fontenelle
+  - GitHub: [@felipegiannetti](https://github.com/felipegiannetti)
+  - Email: [felipegiannettifontenelle@gmail.com](mailto:felipegiannettifontenelle@gmail.com)
 
-## 🤝 Contribuição
+## Licença
 
-Contribuições são bem-vindas. Para colaborar:
-
-1. Faça um **fork** do repositório
-2. Crie uma branch para sua feature: `git checkout -b feat/minha-feature`
-3. Faça commit das alterações: `git commit -m "feat: adiciona minha feature"`
-4. Faça push para a branch: `git push origin feat/minha-feature`
-5. Abra um **Pull Request**
-
-### 📝 Sugestão de padrão de commits
-
-| Prefixo | Uso |
-|---|---|
-| `feat:` | Nova funcionalidade |
-| `fix:` | Correção de bug |
-| `refactor:` | Refatoração sem alterar comportamento esperado |
-| `docs:` | Alterações de documentação |
-| `style:` | Ajustes visuais e formatação |
-| `chore:` | Tarefas de manutenção |
-
----
-
-## 🙏 Agradecimentos
-
-- **PUC Minas** — pelo contexto acadêmico e desenvolvimento do projeto
-- **Comunidade Flask** — pela documentação e ecossistema leve para APIs
-- **Comunidade React** — pela base moderna de desenvolvimento frontend
-- **Tailwind CSS** — pela produtividade na construção da interface
-- **SQLAlchemy** — pela camada ORM utilizada no backend
-
----
-
-## 📄 Licença
-
-Este repositório **não possui um arquivo de licença definido até o momento**.
-
----
-
-<div align="center">
-
-**Desenvolvido por [Felipe Giannetti Fontenelle](https://github.com/felipegiannetti)**
-
-🐙 GitHub: [github.com/felipegiannetti](https://github.com/felipegiannetti)  
-📧 Email: [felipegiannettifontenelle@gmail.com](mailto:felipegiannettifontenelle@gmail.com)
-
-</div>
+Este repositório não possui um arquivo de licença definido no momento.
