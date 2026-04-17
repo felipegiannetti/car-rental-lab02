@@ -1,5 +1,5 @@
 import { NavLink, useNavigate } from 'react-router-dom'
-import { Car, Users, ClipboardList, LogOut, LogIn, UserPlus, Bell, FolderKanban, Palette } from 'lucide-react'
+import { Car, Users, ClipboardList, LogOut, LogIn, UserPlus, Bell, FolderKanban, Palette, Presentation } from 'lucide-react'
 import { useAuth } from '../context/AuthContext'
 import toast from 'react-hot-toast'
 
@@ -120,6 +120,24 @@ export default function Sidebar({ open, onClose }) {
           >
             <Palette className="w-4 h-4 shrink-0" />
             Design System
+          </NavLink>
+          <NavLink
+            to="/slides"
+            onClick={onClose}
+            className={({ isActive }) =>
+              `flex items-center gap-3 px-3 py-2.5 rounded-xl transition-all duration-150 text-sm font-semibold ${
+                isActive
+                  ? 'text-[#004521]'
+                  : 'text-white/50 hover:bg-white/[0.07] hover:text-white/90'
+              }`
+            }
+            style={({ isActive }) => isActive
+              ? { background: '#78de1f', boxShadow: '0 2px 12px rgba(120,222,31,0.35)' }
+              : {}
+            }
+          >
+            <Presentation className="w-4 h-4 shrink-0" />
+            Slides
           </NavLink>
         </div>
       </nav>
