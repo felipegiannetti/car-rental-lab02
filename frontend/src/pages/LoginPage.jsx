@@ -11,6 +11,7 @@ export default function LoginPage() {
   const [form, setForm] = useState({ nomeUsuario: '', senha: '' })
   const [showSenha, setShowSenha] = useState(false)
   const [loading, setLoading] = useState(false)
+  const carBackgroundUrl = 'https://images.unsplash.com/photo-1492144534655-ae79c964c9d7?auto=format&fit=crop&w=1600&q=80'
 
   const handleSubmit = async (e) => {
     e.preventDefault()
@@ -32,7 +33,17 @@ export default function LoginPage() {
   }
 
   return (
-    <div className="relative min-h-screen flex overflow-hidden" style={{ background: '#f2f2f2' }}>
+    <div
+      className="relative min-h-screen flex overflow-hidden bg-cover bg-center"
+      style={{
+        backgroundColor: '#f2f2f2',
+        backgroundImage: `linear-gradient(rgba(1, 41, 16, 0.38), rgba(1, 41, 16, 0.16)), url(${carBackgroundUrl})`,
+      }}
+    >
+      <div
+        className="absolute inset-0 pointer-events-none"
+        style={{ background: 'linear-gradient(90deg, rgba(242,242,242,0.05) 0%, rgba(242,242,242,0.7) 58%, rgba(242,242,242,0.94) 100%)' }}
+      />
 
       {/* ── Left panel – branding ── */}
       <div
@@ -95,7 +106,7 @@ export default function LoginPage() {
       </div>
 
       {/* ── Right panel – form ── */}
-      <div className="w-full lg:w-1/2 flex items-center justify-center p-6 sm:p-10">
+      <div className="relative w-full lg:w-1/2 flex items-center justify-center p-6 sm:p-10">
         <div className="w-full max-w-sm space-y-8">
 
           {/* Mobile logo */}
