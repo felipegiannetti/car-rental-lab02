@@ -2,7 +2,7 @@ import axios from 'axios'
 import { AUTH_STORAGE_KEY } from '../constants/auth'
 
 const http = axios.create({
-  baseURL: '/api',
+  baseURL: (import.meta.env.VITE_API_URL ?? '') + '/api',
   headers: { 'Content-Type': 'application/json' },
 })
 
