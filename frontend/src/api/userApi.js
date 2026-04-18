@@ -6,5 +6,5 @@ export const userApi = {
   create: (data) => http.post('/usuarios/', data).then(r => r.data),
   update: (tipo, id, data) => http.put(`/usuarios/${tipo}/${id}`, data).then(r => r.data),
   remove: (tipo, id) => http.delete(`/usuarios/${tipo}/${id}`),
-  fotoUrl: (tipo, id) => (tipo === 'cliente' ? `/api/clientes/${id}/foto` : null),
+  fotoUrl: (tipo, id) => (tipo === 'cliente' ? `${import.meta.env.VITE_API_URL ?? ''}/api/clientes/${id}/foto` : null),
 }

@@ -6,5 +6,5 @@ export const automovelApi = {
   create:  (data)     => http.post('/automoveis/', data).then(r => r.data),
   update:  (id, data) => http.put(`/automoveis/${id}`, data).then(r => r.data),
   remove:  (id)       => http.delete(`/automoveis/${id}`),
-  fotoUrl: (id)       => `/api/automoveis/${id}/foto`,
+  fotoUrl: (id)       => `${import.meta.env.VITE_API_URL ?? ''}/api/automoveis/${id}/foto`,
 }

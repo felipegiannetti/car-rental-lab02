@@ -7,5 +7,5 @@ export const clienteApi = {
   update:       (id, data)  => http.put(`/clientes/${id}`, data).then(r => r.data),
   remove:       (id)        => http.delete(`/clientes/${id}`),
   buscarPorCpf: (cpf)       => http.get(`/clientes/buscar-cpf/${cpf}`).then(r => r.data),
-  fotoUrl:      (id)        => `/api/clientes/${id}/foto`,
+  fotoUrl:      (id)        => `${import.meta.env.VITE_API_URL ?? ''}/api/clientes/${id}/foto`,
 }
