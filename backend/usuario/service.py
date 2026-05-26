@@ -10,6 +10,7 @@ class UsuarioService:
     def __init__(self):
         self._cliente_service = ClienteService()
 
+    # CODE_REVIEW (07): mistura de entidades + to_dict acoplado -> DTOs explicitos (UsuarioDTO/AdminDTO/ClienteDTO)
     def listar_todos(self):
         usuarios = [admin.to_dict() for admin in Admin.query.all()]
         usuarios.extend(cliente.to_dict() for cliente in Cliente.query.all())
@@ -40,6 +41,7 @@ class UsuarioService:
             senha = data.get('senha')
             if not senha:
                 raise ValueError('Senha e obrigatoria para administradores.')
+            # CODE_REVIEW (24): violacao de encapsulamento (acesso a _preencher_senha privado) -> extrair PasswordService publico
             admin.senha = self._cliente_service._preencher_senha(None, senha)
             db.session.add(admin)
             db.session.commit()

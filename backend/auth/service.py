@@ -8,6 +8,7 @@ from ..extensions import db
 class AuthService:
     """Operacoes de autenticacao e bootstrap de usuarios."""
 
+    # CODE_REVIEW (06): cadeia if/else por tipo de usuario -> Chain of Responsibility (AdminAuthHandler->ClienteAuthHandler)
     def autenticar(self, nome_usuario, senha):
         user = Admin.query.filter_by(nome_usuario=nome_usuario).first()
         if not user:

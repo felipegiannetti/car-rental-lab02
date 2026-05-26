@@ -7,6 +7,7 @@ bp = Blueprint('pedidos', __name__, url_prefix='/api/pedidos')
 _svc = PedidoService()
 
 
+# CODE_REVIEW (08): regras de acesso espalhadas em funcoes ad-hoc -> Specification/Policy Pattern + decorators
 def _can_access_pedido(user, pedido):
     if not user:
         return False

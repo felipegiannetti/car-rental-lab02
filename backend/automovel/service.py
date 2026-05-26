@@ -70,6 +70,7 @@ class AutomovelService:
         if automovel.status_anuncio == 'EM_NEGOCIACAO':
             automovel.status_anuncio = 'DISPONIVEL'
 
+    # CODE_REVIEW (04): construcao incremental com validacoes -> aplicar Builder Pattern (AutomovelBuilder)
     def _preencher(self, automovel, data):
         automovel.matricula = data['matricula']
         automovel.ano = int(data['ano'])
@@ -97,6 +98,7 @@ class AutomovelService:
             return value.strip().lower() in {'1', 'true', 'sim', 'yes', 'on'}
         return bool(value)
 
+    # CODE_REVIEW (13): duplicacao com cliente/service.py:_processar_foto -> extrair helper FotoService
     def _processar_foto(self, automovel, foto_b64, remover_foto=False):
         if remover_foto:
             automovel.foto = None

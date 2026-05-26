@@ -10,6 +10,7 @@ from .model import Cliente, Renda
 class ClienteService:
     """Logica de negocio do modulo de clientes."""
 
+    # CODE_REVIEW (03): acoplamento direto ao ORM em Service -> extrair camada ClienteRepository/DAO
     def listar_todos(self):
         return [c.to_dict() for c in Cliente.query.all()]
 
@@ -61,6 +62,7 @@ class ClienteService:
         db.session.delete(cliente)
         db.session.commit()
 
+    # CODE_REVIEW (11): logica dual hash/plain-text -> Strategy de migracao de credenciais legadas
     def verificar_credenciais(self, nome_usuario, senha):
         cliente = Cliente.query.filter_by(nome_usuario=nome_usuario).first()
         if not cliente:
@@ -73,6 +75,7 @@ class ClienteService:
                 return None
         return cliente.to_dict()
 
+    # CODE_REVIEW (18): God method (21 linhas, multiplas responsabilidades) -> dividir / aplicar Builder
     def _preencher(self, cliente, data):
         cliente.nome_usuario = data['nomeUsuario']
         cliente.senha = self._preencher_senha(getattr(cliente, 'senha', None), data.get('senha'))
@@ -95,6 +98,7 @@ class ClienteService:
                 renda.cliente = cliente
                 cliente.rendas.append(renda)
 
+    # CODE_REVIEW (12): except Exception: pass mascara falhas de decodificacao -> logar + erro especifico
     def _processar_foto(self, cliente, foto_b64):
         if not foto_b64:
             return

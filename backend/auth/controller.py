@@ -7,6 +7,7 @@ _svc = AuthService()
 
 
 @bp.post('/login')
+# CODE_REVIEW (17): try/except ValueError repetido em cada controller -> @app.errorhandler global (ControllerAdvice)
 def login():
     data = request.json or {}
     user = _svc.autenticar(

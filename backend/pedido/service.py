@@ -38,6 +38,7 @@ class PedidoService:
         pedido = db.session.get(Pedido, id)
         return pedido.to_dict() if pedido else None
 
+    # CODE_REVIEW (15): imports dentro do metodo (linhas 42-43) -> elevar ao topo, isolar circular dep via TYPE_CHECKING
     def criar(self, data):
         from ..cliente.model import Cliente
         from ..automovel.model import Automovel
@@ -171,6 +172,7 @@ class PedidoService:
             raise ValueError('Data fim deve ser posterior a data inicio.')
         return inicio, fim
 
+    # CODE_REVIEW (14): N+1 implicito - iteracao Python em vez de WHERE SQL (and_(data_inicio<=fim, data_fim>=inicio))
     def _tem_conflito_de_periodo(self, automovel_id, inicio, fim, ignorar_pedido_id=None):
         query = Pedido.query.filter_by(automovel_id=automovel_id, status='APROVADO', tipo_pedido='ALUGUEL')
         if ignorar_pedido_id is not None:

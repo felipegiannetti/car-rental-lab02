@@ -30,6 +30,7 @@ class Automovel(db.Model):
         foreign_keys=[anunciante_id],
     )
 
+    # CODE_REVIEW (19): logica de dominio (status_atual) no Model usando relacao 'pedidos' -> mover para Service
     def status_atual(self):
         if (self.status_anuncio or 'DISPONIVEL') == 'EM_NEGOCIACAO':
             return 'EM_NEGOCIACAO'

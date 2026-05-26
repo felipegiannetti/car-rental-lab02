@@ -6,10 +6,12 @@ from .config import Config
 from .extensions import db
 
 
+# CODE_REVIEW (01): migrations manuais no startup -> usar Alembic / Flask-Migrate (Strategy)
 def _ensure_legacy_schema():
     inspector = inspect(db.engine)
     table_names = inspector.get_table_names()
 
+    # CODE_REVIEW (09): duplicacao de inspector.get_columns() em 3 blocos -> extrair helper _column_exists()
     if 'clientes' in table_names:
         cliente_columns = {column['name'] for column in inspector.get_columns('clientes')}
         cliente_statements = []
@@ -40,6 +42,7 @@ def _ensure_legacy_schema():
             automovel_statements.append("ALTER TABLE automoveis ADD COLUMN data_atualizacao DATETIME")
         for statement in automovel_statements:
             db.session.execute(text(statement))
+        # CODE_REVIEW (10): inspect(db.engine).get_columns() chamado 3x em sequencia -> cachear em variavel
         if 'status_anuncio' in {column['name'] for column in inspect(db.engine).get_columns('automoveis')}:
             db.session.execute(text("UPDATE automoveis SET status_anuncio = 'DISPONIVEL' WHERE status_anuncio IS NULL"))
         if 'quilometragem' in {column['name'] for column in inspect(db.engine).get_columns('automoveis')}:
@@ -70,6 +73,7 @@ def _ensure_legacy_schema():
     db.session.commit()
 
 
+# CODE_REVIEW (02): Application Factory Pattern implicito -> tornar explicito com classe AppFactory por ambiente
 def create_app():
     app = Flask(__name__)
     app.config.from_object(Config)
@@ -95,6 +99,7 @@ def create_app():
         _ = Admin
         db.create_all()
         _ensure_legacy_schema()
+        # CODE_REVIEW (20): bootstrap silencioso de admin -> logging estruturado + Observer/Event de criacao
         AuthService().garantir_admin_padrao()
 
     return app
