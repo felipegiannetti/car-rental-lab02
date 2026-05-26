@@ -28,6 +28,7 @@ class Pedido(db.Model):
         backref=db.backref('pedidos', lazy=True, cascade='all, delete-orphan'),
     )
 
+    # CODE_REVIEW (05): to_dict variando por status/tipo (linha 34-40) -> Strategy Pattern por TipoPedidoPresenter
     def to_dict(self):
         anunciante = self.automovel.anunciante if self.automovel else None
         contato_anunciante = None

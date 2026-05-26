@@ -1,6 +1,7 @@
 from flask import jsonify, request
 
 
+# CODE_REVIEW (21): autenticacao via headers X-User-Role e facilmente falsificavel -> JWT + middleware
 def get_current_user():
     role = (request.headers.get('X-User-Role') or '').strip().upper()
     raw_id = (request.headers.get('X-User-Id') or '').strip()

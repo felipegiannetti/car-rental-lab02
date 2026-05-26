@@ -18,6 +18,7 @@ def listar():
 
 
 @bp.post('/')
+# CODE_REVIEW (16): aceita request.json cru sem schema -> validar com Pydantic/Marshmallow (Bean Validation)
 def criar():
     try:
         return jsonify(_svc.criar(request.json)), 201
